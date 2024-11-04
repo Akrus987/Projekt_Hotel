@@ -3,6 +3,8 @@
 #include <string>
 using namespace std;
 
+class Rezerwacja;
+
 class Pokoj
 {
     public:
@@ -12,6 +14,8 @@ class Pokoj
         int get_numer(); //zwraca nr pokoju
         string get_stan(); //zwraca stan
         void zmien_stan(string nowy_stan); //zmienia stan pokoju
+
+        friend class Rezerwacja;
     private:
         int numer_; //nr pokoju
         int max_os_; //maksymalna liczba osob w pokoju
