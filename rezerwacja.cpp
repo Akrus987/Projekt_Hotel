@@ -45,7 +45,7 @@ void Rezerwacja::skroc(int nowy_koniec) {
         data.usun_rezerwacje(d);
     }
     dzien_koniec = nowy_koniec;
-    cout << "Rezerwacja została skrócona do dnia " << dzienKoniec << endl;
+    cout << "Rezerwacja została skrócona do dnia " << dzien_koniec << endl;
 }
 
 void Rezerwacja::odwolaj() {
