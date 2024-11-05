@@ -6,7 +6,7 @@ void Data::dodaj_rezerwacje(int dzien){
     }
 }
 
-void Data::usu_rezerwacje(int dzien) {
+void Data::usun_rezerwacje(int dzien) {
     zarezerwowane_dni.erase(remove(zarezerwowane_dni.begin(), zarezerwowane_dni.end(), dzien), zarezerwowane_dni.end());
 }
 
