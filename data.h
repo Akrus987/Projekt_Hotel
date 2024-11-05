@@ -12,7 +12,7 @@ class Data{
         void get_zarazerwowane() const; // zwraca zarezerwowane dni
         bool czy_zarezerwowany(int dzien) const; // sprawdza czy dzien jest zarezerwowany
         void dodaj_rezerwacje(int dzien); // dodaje dni do zarezerwowanych
-        void usu_rezerwacje(int dzien); // usuwa dni z zarezerwowanych
+        void usun_rezerwacje(int dzien); // usuwa dni z zarezerwowanych
         
         friend class Rezerwacja;
 };
