@@ -1,18 +1,18 @@
 #pragma once
-#include <iostream>
 #include <vector>
+#include <tuple>
+#include <iostream>
 using namespace std;
 
-class Rezerwacja;
+class Klient; 
 
-class Data{
-    private:
-        vector<int> zarezerwowane_dni; //jakie dni sa zarezerwowane
-    public:
-        void get_zarazerwowane() const; // zwraca zarezerwowane dni
-        bool czy_zarezerwowany(int dzien) const; // sprawdza czy dzien jest zarezerwowany
-        void dodaj_rezerwacje(int dzien); // dodaje dni do zarezerwowanych
-        void usun_rezerwacje(int dzien); // usuwa dni z zarezerwowanych
-        
-        friend class Rezerwacja;
+class Data {
+private:
+    vector<pair<pair<int, int>, pair<Klient*, Pokoj*>>> zarezerwowane_dni; // przechowuje dane o rezerwacji vector<tuple> -> vektor przechowujacy 3 zmienne
+
+public:
+    void get_zarezerwowane() const; // zwraca wszystkie zarezerwowane dni z klientami
+    bool czy_zarezerwowany(int dzien, int miesiac) const; // sprawdza czy dany dzien jest zarezerwowany przez klient
+    void dodaj_rezerwacje(int dzien, int miesiac, Klient* klient); // dodaje rezerwacje
+    void usun_rezerwacje(int dzien, int miesiac, Klient* klient); // usuwa rezerwacje
 };
