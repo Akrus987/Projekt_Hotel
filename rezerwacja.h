@@ -3,6 +3,8 @@
 #include "pokoj.h"
 #include "klient.h"
 
+using namespace std;
+
 class Rezerwacja{
     private:
         Data& data;
@@ -19,7 +21,7 @@ class Rezerwacja{
         void rezerwuj(int start_dzien, int start_miesiac, int koniec_dzien, int koniec_miesiac, int rok); // rezerwuje pobyt od start do koniec
         void przedluz(int nowy_koniec_dzien, int nowy_koniec_miesiac);  //przedluza pobyt do dnia nowy_koniec
         void skroc(int nowy_koniec_dzien, int nowy_koniec_miesiac);    //skraca pobyt do dnia nowy_koniec
-        void odwolaj();     //anuluje pobyt
+        void odwolaj(int start_dzien, int start_miesiac, int koniec_dzien, int koniec_miesiac, int rok);     //anuluje pobyt
 
 };
 
