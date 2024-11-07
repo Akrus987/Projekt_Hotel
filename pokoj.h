@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <vector>
+#include "klient.h"
 using namespace std;
 
 class Rezerwacja;
