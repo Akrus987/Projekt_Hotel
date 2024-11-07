@@ -1,4 +1,5 @@
 #include "data.h"
+using namespace std;
 
 void Data::dodaj_rezerwacje(int dzien, int miesiac, Klient* klient, Pokoj& pokoj) {
     zarezerwowane_dni.push_back({{dzien, miesiac}, {klient, &pokoj}});
