@@ -12,3 +12,6 @@ string Klient::get_nazwisko()
 {
     return nazwisko_;
 }
+
+
+//test run
