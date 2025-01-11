@@ -35,12 +35,14 @@ string GeneratePassword(string IDx)
         }
     }
     inFile.close();
+    return "No ID under that index";
 }
 
 int main()
 {
     string pass;
     pass = GeneratePassword("ID007");
+    cout << pass;
     return 0;
 }
 
