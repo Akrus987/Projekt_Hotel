@@ -10,6 +10,7 @@
 #include <vector>
 #include <sstream>
 #include <stdexcept>
+#include "BasicPasswordGenerator.h"
 
 using namespace std;
 
@@ -26,9 +27,17 @@ vector<vector<string>> readData(const string& filename) {
         stringstream ss(line);
         vector<string> row;
         while (ss >> word) {
+            if (word.substr(0, 2) == "ID") {
+                if (!row.empty()) {
+                    data.push_back(row);
+                    row.clear();
+                }
+            }
             row.push_back(word);
         }
-        data.push_back(row);
+        if (!row.empty()) {
+            data.push_back(row);
+        }
     }
     inFile.close();
     return data;
@@ -54,12 +63,17 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
         if (row[0] == ID) {
             cout << "ID is " << row[0] << "." << endl;
             cout << "The rest of info is: " << row[1] << " " << row[2] 
-                 << ", age: " << row[3] << ", room: " << row[4] << endl;
+                 << ", age: " << row[3] << ", room: " << row[4];
+            if (row.size() > 5) {
+                cout << ", password: " << row[5];
+            }
+            cout << endl;
             return;
         }
     }
     cout << "No ID under that index" << endl;
 }
+
 
 void updateData(vector<vector<string>>& data, const string& ID) {
     for (auto& row : data) {
@@ -72,30 +86,51 @@ void updateData(vector<vector<string>>& data, const string& ID) {
             cin >> row[3];
             cout << "Enter new room: ";
             cin >> row[4];
+            string newPassword = GeneratePassword(row[1], row[2]);
+            if (row.size() > 5) {
+                row[5] = newPassword; // Update the existing password
+            } else {
+                row.push_back(newPassword); // Add the new password
+            }
+            cout << "Generated Password: " << newPassword << endl;
             return;
         }
     }
     cout << "No ID under that index" << endl;
 }
 
-int filename()
+int main()
 {
     vector<vector<string>> data = readData("testing_ID.txt");
 
+    string input;
+    cout << "Enter the ID to display (e.g., ID003 or 3): ";
+    cin >> input;
+
     string ID;
-    cout << "Enter the ID to display (e.g., ID003): ";
-    cin >> ID;
-    displayData(data, ID);
-    char answer;
-    cin >> answer;
-    if (answer == 'y')
-    {
-        cout << "Enter the ID to update (e.g., ID003): ";
-        cin >> ID;
-        updateData(data, ID);
+    if (isdigit(input[0])) {
+        ID = formatID(stoi(input));
+    } else {
+        ID = input;
     }
 
-    saveData("testing_ID.txt", data);
+    displayData(data, ID);
+
+    char answer;
+    cout << "Do you want to update an ID? (y/n): ";
+    cin >> answer;
+    if (answer == 'y' || answer == 'Y')
+    {
+        cout << "Enter the ID to update (e.g., ID003 or 3): ";
+        cin >> input;
+        if (isdigit(input[0])) {
+            ID = formatID(stoi(input));
+        } else {
+            ID = input;
+        }
+        updateData(data, ID);
+        saveData("testing_ID.txt", data);
+    }
 
     return 0;
 }
