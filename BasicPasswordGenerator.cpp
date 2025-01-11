@@ -37,7 +37,7 @@ string GeneratePassword(string IDx)
     inFile.close();
 }
 
-//int main()
+int main()
 {
     string pass;
     pass = GeneratePassword("ID007");
