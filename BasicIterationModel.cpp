@@ -10,6 +10,7 @@
 #include <vector>
 #include <sstream>
 #include <stdexcept>
+#include <cctype>
 #include "BasicPasswordGenerator.h"
 
 using namespace std;
@@ -58,6 +59,27 @@ void saveData(const string& filename, const vector<vector<string>>& data) {
     outFile.close();
 }
 
+bool isValidName(const string& name) {
+    if (name.length() < 2 || name.length() > 25) {
+        return false;
+    }
+    for (char c : name) {
+        if (!isalpha(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool isValidNumber(const string& number) {
+    for (char c : number) {
+        if (!isdigit(c)) {
+            return false;
+        }
+    }
+    return true;
+}
+
 void displayData(const vector<vector<string>>& data, const string& ID) {
     for (const auto& row : data) {
         if (row[0] == ID) {
@@ -74,19 +96,39 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
     cout << "No ID under that index" << endl;
 }
 
-
 void updateData(vector<vector<string>>& data, const string& ID) {
     for (auto& row : data) {
         if (row[0] == ID) {
+            string name, surname, age, room;
             cout << "Enter new name: ";
-            cin >> row[1];
+            cin >> name;
+            if (!isValidName(name)) {
+                cout << "Invalid name. It must be between 2 and 25 characters and contain only letters." << endl;
+                return;
+            }
             cout << "Enter new surname: ";
-            cin >> row[2];
+            cin >> surname;
+            if (!isValidName(surname)) {
+                cout << "Invalid surname. It must be between 2 and 25 characters and contain only letters." << endl;
+                return;
+            }
             cout << "Enter new age: ";
-            cin >> row[3];
+            cin >> age;
+            if (!isValidNumber(age)) {
+                cout << "Invalid age. It must contain only numbers." << endl;
+                return;
+            }
             cout << "Enter new room: ";
-            cin >> row[4];
-            string newPassword = GeneratePassword(row[1], row[2]);
+            cin >> room;
+            if (!isValidNumber(room)) {
+                cout << "Invalid room. It must contain only numbers." << endl;
+                return;
+            }
+            row[1] = name;
+            row[2] = surname;
+            row[3] = age;
+            row[4] = room;
+            string newPassword = GeneratePassword(name, surname);
             if (row.size() > 5) {
                 row[5] = newPassword; // Update the existing password
             } else {
