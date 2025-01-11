@@ -39,7 +39,7 @@ string GeneratePassword(string IDx)
 int main()
 {
     string pass;
-    pass = GeneratePassword("ID005");
+    pass = GeneratePassword("ID007");
     return 0;
 }
 
