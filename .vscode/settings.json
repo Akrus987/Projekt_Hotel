@@ -5,6 +5,7 @@
         "xstring": "cpp",
         "iomanip": "cpp",
         "iosfwd": "cpp",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "string": "cpp"
     }
 }
