@@ -3,11 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**",
-                "C:/Qt/6.8.1/msvc2022_64/include",
-                "C:/Qt/6.8.1/msvc2022_64/include/QtWidgets",
-                "C:/Qt/6.8.1/msvc2022_64/include/QtCore",
-                "C:/Qt/6.8.1/msvc2022_64/include/QtGui"
+                "${workspaceFolder}/**"
             ],
             "defines": [
                 "_DEBUG",

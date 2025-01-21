@@ -109,7 +109,7 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
     cout << "No ID under that index" << endl;
 }
 
-void updateData(vector<vector<string>>& data, const string& ID) {
+void updateGuest(vector<vector<string>>& data, const string& ID) {
     for (auto& row : data) {
         string IDChecked = FormatID(ID);
         if (row[0] == IDChecked) {
@@ -155,19 +155,31 @@ void updateData(vector<vector<string>>& data, const string& ID) {
     cout << "No ID under that index" << endl;
 }
 
-
+string getUnhashedPassword(const vector<vector<string>>& data, const string& ID) {
+    string IDChecked = FormatID(ID);
+    for (const auto& row : data) {
+        if (row[0] == IDChecked) {
+            if (row.size() > 5) {
+                return UnhashPassword(row[5]);
+            } else {
+                throw runtime_error("No password found for the given ID.");
+            }
+        }
+    }
+    throw runtime_error("No ID under that index.");
+}
 
 int main()
 {
 
-    vector<vector<string>> data = readData("testing_ID.txt");
-
+    vector<vector<string>> MainIdFile = readData("testing_ID.txt");
+    vector<vector<string>> Passwords = readData("testing_Passwords.txt");
     
     string input;
     cout << "Enter the ID to display (e.g., ID003 or 3): ";
     cin >> input;
 
-    displayData(data, input);
+    displayData(MainIdFile, input);
 
     char answer;
     cout << "Do you want to update an ID? (y/n): ";
@@ -176,8 +188,8 @@ int main()
     {
         cout << "Enter the ID to update (e.g., ID003 or 3): ";
         cin >> input;
-        updateData(data, input);
-        saveData("testing_ID.txt", data);
+        updateGuest(MainIdFile, input);
+        saveData("testing_ID.txt", MainIdFile);
     }
     
     return 0;
