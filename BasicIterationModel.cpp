@@ -266,5 +266,14 @@ int main() {
     }
     displayData(MainIdFile, current_user);
 
+    char answer;
+    cout << "Do you want to update your profile? (y/n): ";
+    cin >> answer;
+    if (answer == 'y' || answer == 'Y') {
+
+        updateGuest(MainIdFile, Passwords, current_user);
+        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+    }
+    //DaPr4h9mMdhXriuszzybylski - nowe haslo
     return 0;
 }
