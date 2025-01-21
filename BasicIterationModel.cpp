@@ -80,9 +80,22 @@ bool isValidNumber(const string& number) {
     return true;
 }
 
+string FormatID(const string& input)
+{
+    string ID;
+    if (isdigit(input[0])) {
+        ID = formatID(stoi(input));
+    }
+    else {
+        ID = input;
+    }
+    return ID;
+}
+
 void displayData(const vector<vector<string>>& data, const string& ID) {
     for (const auto& row : data) {
-        if (row[0] == ID) {
+        string IDChecked = FormatID(ID);
+        if (row[0] == IDChecked) {
             cout << "ID is " << row[0] << "." << endl;
             cout << "The rest of info is: " << row[1] << " " << row[2] 
                  << ", age: " << row[3] << ", room: " << row[4];
@@ -98,7 +111,8 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
 
 void updateData(vector<vector<string>>& data, const string& ID) {
     for (auto& row : data) {
-        if (row[0] == ID) {
+        string IDChecked = FormatID(ID);
+        if (row[0] == IDChecked) {
             string name, surname, age, room;
             cout << "Enter new name: ";
             cin >> name;
@@ -153,14 +167,7 @@ int main()
     cout << "Enter the ID to display (e.g., ID003 or 3): ";
     cin >> input;
 
-    string ID;
-    if (isdigit(input[0])) {
-        ID = formatID(stoi(input));
-    } else {
-        ID = input;
-    }
-
-    displayData(data, ID);
+    displayData(data, input);
 
     char answer;
     cout << "Do you want to update an ID? (y/n): ";
@@ -169,12 +176,7 @@ int main()
     {
         cout << "Enter the ID to update (e.g., ID003 or 3): ";
         cin >> input;
-        if (isdigit(input[0])) {
-            ID = formatID(stoi(input));
-        } else {
-            ID = input;
-        }
-        updateData(data, ID);
+        updateData(data, input);
         saveData("testing_ID.txt", data);
     }
     
