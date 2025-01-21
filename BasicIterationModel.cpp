@@ -163,6 +163,7 @@ void updateGuest(vector<vector<string>>& data, vector<vector<string>>& passwords
             row[2] = surname;
             row[3] = age;
             row[4] = room;
+
             string Pass = GeneratePassword(name, surname);
             string Password = HashPassword(Pass);
             bool passwordUpdated = false;
@@ -204,6 +205,7 @@ string ID = FormatID(input);
 }
 
 int main() {
+    cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
     vector<vector<string>> MainIdFile = readData("testing_ID.txt");
     vector<vector<string>> Passwords = readData("testing_Passwords.txt");
 
