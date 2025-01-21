@@ -1,6 +1,6 @@
-ID001 Baba Raba 20 35 BaRa1LPtcwzLbaba 
-ID002 Johny Sins 23 202 JoSi4V4HxS%nhnyns 
-ID003 xy by 35 204 xyby&!2ZDCFu 
+ID001 Baba Raba 20 35 
+ID002 Alexa Siri 35 102 
+ID003 Anne Basically 30 204 
 ID004 Emily Huston 22 104 
 ID005 David Wilson 35 105 
 ID006 Sarah Brown 27 106 
@@ -24,7 +24,7 @@ ID023 Alexander Harris 39 203
 ID024 Isabella Baker 18 204 
 ID025 Ethan Thompson 29 205 
 ID026 Mia Rodriguez 30 206 
-ID027 Piotr Przybylski 100 101 PiPrC96*bbZ#otrzybylski 
+ID027 Piotr Przybylski 100 101 
 ID028 Ella Campbell 26 208 
 ID029 Henry Cooper 22 209 
 ID030 Lily Sanchez 24 210 

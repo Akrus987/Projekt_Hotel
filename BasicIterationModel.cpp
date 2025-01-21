@@ -13,6 +13,9 @@
 #include <cctype>
 #include "BasicPasswordGenerator.h"
 
+// Function declaration
+string getUnhashedPassword(const vector<vector<string>>& passwords, const string& input);
+
 using namespace std;
 
 vector<vector<string>> readData(const string& filename) {
@@ -25,11 +28,16 @@ vector<vector<string>> readData(const string& filename) {
     vector<vector<string>> data;
     string line, word;
     while (getline(inFile, line)) {
+
         stringstream ss(line);
         vector<string> row;
-        while (ss >> word) {
-            if (word.substr(0, 2) == "ID") {
-                if (!row.empty()) {
+
+        while (ss >> word) 
+        {
+            if (word.substr(0, 2) == "ID") 
+            {
+                if (!row.empty()) 
+                {
                     data.push_back(row);
                     row.clear();
                 }
@@ -44,19 +52,32 @@ vector<vector<string>> readData(const string& filename) {
     return data;
 }
 
-void saveData(const string& filename, const vector<vector<string>>& data) {
-    ofstream outFile(filename);
+void saveData(const string& dataFilename, const string& passwordFilename, const vector<vector<string>>& data, const vector<vector<string>>& passwordFile) {
+    ofstream outFile(dataFilename);
     if (!outFile) {
-        cerr << "Unable to open file " << filename << endl;
+        cerr << "Unable to open file " << dataFilename << endl;
         exit(1); // terminate with error
     }
+
+    ofstream passFile(passwordFilename);
+    if (!passFile) {
+        cerr << "Unable to open file " << passwordFilename << endl;
+        exit(1); // terminate with error
+    }
+
     for (const auto& row : data) {
         for (const auto& field : row) {
             outFile << field << " ";
         }
         outFile << endl;
     }
+
+    for (const auto& passRow : passwordFile) {
+        passFile << passRow[0] << " " << passRow[1] << endl;
+    }
+
     outFile.close();
+    passFile.close();
 }
 
 bool isValidName(const string& name) {
@@ -109,9 +130,9 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
     cout << "No ID under that index" << endl;
 }
 
-void updateGuest(vector<vector<string>>& data, const string& ID) {
+void updateGuest(vector<vector<string>>& data, vector<vector<string>>& passwords, const string& ID) {
+    string IDChecked = FormatID(ID);
     for (auto& row : data) {
-        string IDChecked = FormatID(ID);
         if (row[0] == IDChecked) {
             string name, surname, age, room;
             cout << "Enter new name: ";
@@ -142,26 +163,39 @@ void updateGuest(vector<vector<string>>& data, const string& ID) {
             row[2] = surname;
             row[3] = age;
             row[4] = room;
-            string newPassword = GeneratePassword(name, surname);
-            if (row.size() > 5) {
-                row[5] = newPassword; // Update the existing password
-            } else {
-                row.push_back(newPassword); // Add the new password
+            string Pass = GeneratePassword(name, surname);
+            string Password = HashPassword(Pass);
+            bool passwordUpdated = false;
+            for (auto& passRow : passwords) {
+                if (passRow[0] == IDChecked) {
+                    passRow[1] = Password;
+                    passwordUpdated = true;
+                    break;
+                }
             }
-            cout << "Generated Password: " << newPassword << endl;
+            if (!passwordUpdated) {
+                passwords.push_back({IDChecked, Password});
+            }
+            cout << "Generated Password: " << Pass << endl;
             return;
         }
     }
     cout << "No ID under that index" << endl;
 }
 
-string getUnhashedPassword(const vector<vector<string>>& data, const string& ID) {
-    string IDChecked = FormatID(ID);
-    for (const auto& row : data) {
-        if (row[0] == IDChecked) {
-            if (row.size() > 5) {
-                return UnhashPassword(row[5]);
-            } else {
+string getUnhashedPassword(const vector<vector<string>>& passwords, const string& input) 
+{
+string ID = FormatID(input);
+    for (const auto& row : passwords) 
+    {
+        if (row[0] == ID) 
+        {
+            if (row.size() > 1)
+            {
+                return UnhashPassword(row[1]);
+            } 
+            else 
+            {
                 throw runtime_error("No password found for the given ID.");
             }
         }
@@ -169,12 +203,10 @@ string getUnhashedPassword(const vector<vector<string>>& data, const string& ID)
     throw runtime_error("No ID under that index.");
 }
 
-int main()
-{
-
+int main() {
     vector<vector<string>> MainIdFile = readData("testing_ID.txt");
     vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-    
+
     string input;
     cout << "Enter the ID to display (e.g., ID003 or 3): ";
     cin >> input;
@@ -184,13 +216,12 @@ int main()
     char answer;
     cout << "Do you want to update an ID? (y/n): ";
     cin >> answer;
-    if (answer == 'y' || answer == 'Y')
-    {
+    if (answer == 'y' || answer == 'Y') {
         cout << "Enter the ID to update (e.g., ID003 or 3): ";
         cin >> input;
-        updateGuest(MainIdFile, input);
-        saveData("testing_ID.txt", MainIdFile);
+        updateGuest(MainIdFile, Passwords, input);
+        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
     }
-    
+
     return 0;
 }

@@ -33,4 +33,20 @@ string GeneratePassword(const string& name, const string& surname)
     return newPassword;
 }
 
+
+string HashPassword(const string& password) {
+    string hashedPassword;
+    for (char c : password) {
+        hashedPassword += c + 3; // Shift each character by 3
+    }
+    return hashedPassword;
+}
+
+string UnhashPassword(const string& hashedPassword) {
+    string unhashedPassword;
+    for (char c : hashedPassword) {
+        unhashedPassword += c - 3; // Shift each character back by 3
+    }
+    return unhashedPassword;
+}
 #endif // BASIC_PASSWORD_GENERATOR_H
