@@ -204,11 +204,40 @@ string ID = FormatID(input);
     throw runtime_error("No ID under that index.");
 }
 
+string getID(const vector<vector<string>>& data, const string& imie, const string& nazwisko) {
+    for (const auto& row : data) {
+        if (row[1] == imie && row[2] == nazwisko) {
+            return row[0];
+        }
+    }
+    cout << "No user with this name." << endl;
+    throw runtime_error("No user with this name.");
+}
+
+string login(const vector<vector<string>>& passwords, const string& ID, const string& password) {
+        for (const auto& passRow : passwords) {
+            if (passRow[0] == ID) {
+                if (UnhashPassword(passRow[1]) == password) {
+                    cout << "Login successful." << endl;
+                    return ID;
+                }
+                else {
+                    cout <<  "Incorrect password." << endl;
+                    return "NULL";
+                }
+            }
+        }
+        cout << "No password found for the given ID." << endl;
+        return "NULL";
+}
+
+
+
 int main() {
     cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
     vector<vector<string>> MainIdFile = readData("testing_ID.txt");
     vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-
+/*
     string input;
     cout << "Enter the ID to display (e.g., ID003 or 3): ";
     cin >> input;
@@ -224,6 +253,18 @@ int main() {
         updateGuest(MainIdFile, Passwords, input);
         saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
     }
+*/
+    string name, surname, password, current_user = "NULL";
+    while (current_user == "NULL") {
+        cout << "Enter the name: ";
+        cin >> name;
+        cout << "Enter the surname: ";
+        cin >> surname;
+        cout << "Enter the password: ";
+        cin >> password;
+        current_user = login(Passwords, getID(MainIdFile, name, surname), password); // logowanie zwraca ID zalogowanego uzytkownika
+    }
+    displayData(MainIdFile, current_user);
 
     return 0;
 }
