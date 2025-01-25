@@ -9,5 +9,6 @@
         "string": "cpp",
         "xutility": "cpp",
         "cctype": "cpp"
-    }
+    },
+    "files.autoSave": "afterDelay"
 }

@@ -1,53 +1,23 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <vector>
-#include <sstream>
-#include <stdexcept>
-#include <cctype>
-#include "BasicPasswordGenerator.h"
-#include "BasicIterationModel.cpp"
-
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
 int main()
 {
-    vector<vector<string>> data = readData("data.txt");
-    vector<vector<string>> passwordFile = readData("passwords.txt");
-    int choice=0;
-    bool run=1;
-    cout << "Witaj w Hotelu!" << endl;
-    cout << "--------------------------------" << endl;
-    cout << "1. Utworz konto" << endl;
-    cout << "2. Zaloguj sie" << endl;
-    cout << "3. Wyjdz" << endl;
-    cout << "--------------------------------" << endl;
-    cin >> choice;
-    while (run)
+    // Create a window with a specific resolution and default 32-bit color depth
+    sf::VideoMode mode(800, 600);  // 800x600 resolution
+    sf::RenderWindow window(mode, "SFML Window");
+
+    while (window.isOpen())
     {
-            cout << "--------------------------------" << endl;
-            cout << "1. Utworz konto" << endl;
-            cout << "2. Zaloguj sie" << endl;
-            cout << "3. Wyjdz" << endl;
-            cout << "--------------------------------" << endl;
-        switch (choice)
+        sf::Event event{};
+        while (window.pollEvent(event))
         {
-            case 1:
-            {
-                break;   
-            }
-            case 2:
-            {
-                break;
-            }
-            case 3:
-            {
-                break;
-            }
-            default:
-            {
-                cout << "Niepoprawny wybor!" << endl;
-                break;
-            }
+            if (event.type == sf::Event::Closed)
+                window.close();
         }
+
+        window.clear();
+        window.display();
     }
+
     return 0;
 }

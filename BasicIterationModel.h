@@ -1,15 +1,8 @@
 #ifndef BASIC_ITERATION_MODEL_H
 #define BASIC_ITERATION_MODEL_H
 
-#include <iostream>
-#include <fstream>
-#include <string>
 #include <vector>
-#include <sstream>
-#include <stdexcept>
-#include <cctype>
-#include <windows.h>
-#include "BasicPasswordGenerator.h"
+#include <string>
 
 using namespace std;
 

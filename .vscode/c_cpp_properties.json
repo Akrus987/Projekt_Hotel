@@ -3,7 +3,10 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/um",
+                "C:/Users/jakub/Documents/SFML-3.0.0/include",  // SFML Include Path
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.22621.0/shared/**"
             ],
             "defines": [
                 "_DEBUG",
@@ -11,10 +14,16 @@
                 "_UNICODE"
             ],
             "windowsSdkVersion": "10.0.22621.0",
-            "compilerPath": "cl.exe",
+            "compilerPath": "C:/path/to/your/visualstudio/compiler/cl.exe",  // Set this to the actual cl.exe path
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64"
+            "intelliSenseMode": "windows-msvc-x64",
+            "browse": {
+                "path": [
+                    "${workspaceFolder}",
+                    "C:/Users/jakub/Documents/SFML-3.0.0/include"  // SFML Include Path
+                ]
+            }
         }
     ],
     "version": 4

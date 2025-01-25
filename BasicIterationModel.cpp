@@ -19,7 +19,7 @@ string getUnhashedPassword(const vector<vector<string>>& passwords, const string
 
 using namespace std;
 
-vector<vector<string>> readData(const string& filename) {
+vector<vector<string>> readData(const string& filename, bool Passwordhashed) {
     ifstream inFile(filename);
     if (!inFile) {
         cerr << "Unable to open file " << filename << endl;
@@ -29,26 +29,19 @@ vector<vector<string>> readData(const string& filename) {
     vector<vector<string>> data;
     string line, word;
     while (getline(inFile, line)) {
-
         stringstream ss(line);
         vector<string> row;
-
-        while (ss >> word) 
-        {
-            if (word.substr(0, 2) == "ID") 
-            {
-                if (!row.empty()) 
-                {
-                    data.push_back(row);
-                    row.clear();
-                }
-            }
+        while (ss >> word) {
             row.push_back(word);
         }
         if (!row.empty()) {
+            if (Passwordhashed && row.size() > 1) {
+                row[1] = UnhashPassword(row[1]);
+            }
             data.push_back(row);
         }
     }
+
     inFile.close();
     return data;
 }
