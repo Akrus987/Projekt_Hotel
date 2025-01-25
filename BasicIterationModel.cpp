@@ -130,40 +130,119 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
     cout << "No ID under that index" << endl;
 }
 
-void updateGuest(vector<vector<string>>& data, vector<vector<string>>& passwords, const string& ID) {
+void displayUser(const vector<vector<string>>& data, const string& ID ) {
+    for (const auto& row : data) {
+        if (row[0] == ID) 
+        {
+           cout << "Currently logged in as: " << row[1] << " " << row[2] << endl;
+              return;
+        }
+    }
+    cout << "No user with this ID." << endl;
+}
+
+bool isValidType(const string& type) {
+    return type == "g" || type == "a" || type == "x";
+}
+
+void updateGuestAdmin(vector<vector<string>>& data, vector<vector<string>>& passwords, const string& ID) {
     string IDChecked = FormatID(ID);
     for (auto& row : data) {
         if (row[0] == IDChecked) {
-            string name, surname, age, room;
-            cout << "Enter new name: ";
+            string name, surname, age, room, type;
+            cout << "Enter the name: ";
             cin >> name;
-            if (!isValidName(name)) {
+            while (!isValidName(name)) {
                 cout << "Invalid name. It must be between 2 and 25 characters and contain only letters." << endl;
-                return;
+                cout << "Enter the name: ";
+                cin >> name;
             }
-            cout << "Enter new surname: ";
+            cout << "Enter the surname: ";
             cin >> surname;
-            if (!isValidName(surname)) {
+            while (!isValidName(surname)) {
                 cout << "Invalid surname. It must be between 2 and 25 characters and contain only letters." << endl;
-                return;
+                cout << "Enter the surname: ";
+                cin >> surname;
             }
-            cout << "Enter new age: ";
+            cout << "Enter the age: ";
             cin >> age;
-            if (!isValidNumber(age)) {
+            while (!isValidNumber(age)) {
                 cout << "Invalid age. It must contain only numbers." << endl;
-                return;
+                cout << "Enter the age: ";
+                cin >> age;
             }
-            cout << "Enter new room: ";
+            cout << "Enter the room: ";
             cin >> room;
-            if (!isValidNumber(room)) {
+            while (!isValidNumber(room)) {
                 cout << "Invalid room. It must contain only numbers." << endl;
-                return;
+                cout << "Enter the room: ";
+                cin >> room;
             }
+            cout << "Enter the type (g - guest, a - admin, x - inactive): ";
+            cin >> type;
+            while (!isValidType(type)) {
+                cout << "Invalid type. It must be g, a, or x." << endl;
+                cout << "Enter the type (g - guest, a - admin, x - inactive): ";
+                cin >> type;
+            }
+
             row[1] = name;
             row[2] = surname;
             row[3] = age;
             row[4] = room;
+            row[5] = type;
+            string Pass = GeneratePassword(name, surname);
+            string Password = HashPassword(Pass);
+            bool passwordUpdated = false;
+            for (auto& passRow : passwords) {
+                if (passRow[0] == IDChecked) {
+                    passRow[1] = Password;
+                    passwordUpdated = true;
+                    break;
+                }
+            }
+            if (!passwordUpdated) {
+                passwords.push_back({IDChecked, Password});
+            }
+            cout << "Generated Password: " << Pass << endl;
+            return;
+        }
+    }
+    cout << "No ID under that index" << endl;
+}
 
+void updateGuest(vector<vector<string>>& data, vector<vector<string>>& passwords, const string& ID) {
+    string IDChecked = FormatID(ID);
+    for (auto& row : data) {
+        if (row[0] == IDChecked) {
+            string name, surname, age;
+            cout << "Enter the name: ";
+            cin >> name;
+            while (!isValidName(name)) {
+                cout << "Invalid name. It must be between 2 and 25 characters and contain only letters." << endl;
+                cout << "Enter the name: ";
+                cin >> name;
+            }
+            cout << "Enter the surname: ";
+            cin >> surname;
+            while (!isValidName(surname)) {
+                cout << "Invalid surname. It must be between 2 and 25 characters and contain only letters." << endl;
+                cout << "Enter the surname: ";
+                cin >> surname;
+            }
+            cout << "Enter the age: ";
+            cin >> age;
+            while (!isValidNumber(age)) {
+                cout << "Invalid age. It must contain only numbers." << endl;
+                cout << "Enter the age: ";
+                cin >> age;
+            }
+
+            row[1] = name;
+            row[2] = surname;
+            row[3] = age;
+            row[4] = "0";
+            row[5] = "g";
             string Pass = GeneratePassword(name, surname);
             string Password = HashPassword(Pass);
             bool passwordUpdated = false;
@@ -204,11 +283,70 @@ string ID = FormatID(input);
     throw runtime_error("No ID under that index.");
 }
 
+string getID(const vector<vector<string>>& data, const string& imie, const string& nazwisko) {
+    for (const auto& row : data) {
+        if (row[1] == imie && row[2] == nazwisko) {
+            return row[0];
+        }
+    }
+    return "ID000";
+}
+
+string login(const vector<vector<string>>& passwords, const string& ID, const string& password) {
+        if (ID == "ID000") {
+            cout << "No user with this name and surname." << endl;
+            return "NULL";
+        }
+
+        for (const auto& passRow : passwords) {
+            if (passRow[0] == ID) {
+                if (UnhashPassword(passRow[1]) == password) {
+                    cout << "Login successful." << endl;
+                    return ID;
+                }
+                else {
+                    cout <<  "Incorrect password." << endl;
+                    return "NULL";
+                }
+            }
+        }
+        cout << "No password found for the given ID." << endl;
+        return "NULL";
+}
+
+void new_user(vector<vector<string>>& data, vector<vector<string>>& passwords) {
+    string ID="0", name, surname, age, type="g";
+    for (const auto& row : data) 
+    {
+        if (row[5] == "x")
+        {
+            ID = row[0];
+            break;
+        }
+    }
+    if (ID == "0") 
+    {
+        cout << "No more space for new users." << endl;
+        return;
+    }
+    updateGuest(data, passwords, ID);
+    
+}
+
+string getType(const vector<vector<string>>& data, const string& ID) {
+    for (const auto& row : data) {
+        if (row[0] == ID) {
+            return row[5];
+        }
+    }
+    return "x";
+}
+/*
 int main() {
     cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
-    vector<vector<string>> MainIdFile = readData("testing_ID.txt");
+    vector<vector<string>> MainIdFile = readData("testing.ID.txt");
     vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-
+/*
     string input;
     cout << "Enter the ID to display (e.g., ID003 or 3): ";
     cin >> input;
@@ -225,5 +363,26 @@ int main() {
         saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
     }
 
+    string name, surname, password, current_user = "NULL";
+    while (current_user == "NULL") {
+        cout << "Enter the name: ";
+        cin >> name;
+        cout << "Enter the surname: ";
+        cin >> surname;
+        cout << "Enter the password: ";
+        cin >> password;
+        current_user = login(Passwords, getID(MainIdFile, name, surname), password); // logowanie zwraca ID zalogowanego uzytkownika
+    }
+    displayData(MainIdFile, current_user);
+
+    char answer;
+    cout << "Do you want to update your profile? (y/n): ";
+    cin >> answer;
+    if (answer == 'y' || answer == 'Y') {
+
+        updateGuestAdmin(MainIdFile, Passwords, current_user);
+        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+    }
+    //DaPr8MavNIpQriuszzybylski - nowe haslo
     return 0;
-}
+}*/
