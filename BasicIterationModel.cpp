@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <cctype>
 #include "BasicPasswordGenerator.h"
+#include "BasicIterationModel.h"
 
 // Function declaration
 string getUnhashedPassword(const vector<vector<string>>& passwords, const string& input);
@@ -232,48 +233,3 @@ string login(const vector<vector<string>>& passwords, const string& ID, const st
 }
 
 
-
-int main() {
-    cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
-    vector<vector<string>> MainIdFile = readData("testing_ID.txt");
-    vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-/*
-    string input;
-    cout << "Enter the ID to display (e.g., ID003 or 3): ";
-    cin >> input;
-
-    displayData(MainIdFile, input);
-
-    char answer;
-    cout << "Do you want to update an ID? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-        cout << "Enter the ID to update (e.g., ID003 or 3): ";
-        cin >> input;
-        updateGuest(MainIdFile, Passwords, input);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
-    }
-*/
-    string name, surname, password, current_user = "NULL";
-    while (current_user == "NULL") {
-        cout << "Enter the name: ";
-        cin >> name;
-        cout << "Enter the surname: ";
-        cin >> surname;
-        cout << "Enter the password: ";
-        cin >> password;
-        current_user = login(Passwords, getID(MainIdFile, name, surname), password); // logowanie zwraca ID zalogowanego uzytkownika
-    }
-    displayData(MainIdFile, current_user);
-
-    char answer;
-    cout << "Do you want to update your profile? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-
-        updateGuest(MainIdFile, Passwords, current_user);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
-    }
-    //DaPr4h9mMdhXriuszzybylski - nowe haslo
-    return 0;
-}
