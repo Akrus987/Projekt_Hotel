@@ -12,6 +12,7 @@ int main()
 {
     vector<vector<string>> data = readData("testing_ID.txt");
     vector<vector<string>> passwordFile = readData("testing_Passwords.txt");
+    vector<vector<string>> reservations = readData("testing_rooms.txt");
     int choice=0;
     bool run=1;
     cout << "Welcome to Hotel!" << endl;
@@ -54,7 +55,50 @@ int main()
                 if (getType(data,current_user)=="a")
                 {
                     cout << "You are admin!" << endl;
+                    cout << "1. Change user data" << endl;
+                    cout << "2. Change reservations" << endl;
+                    cout << "3. Log out" << endl;
+                    cout  << endl;
+                    cout << "--------------------------------" << endl;
+                    cout << "Chose option: ";
+                    cin >> choice;
+                    switch(choice)
+                    {
+                        case 1:
+                        {
+                            cout << "Change user data" << endl;
+                            listactiveID(data);
+                            cout<<"Enter ID of user you want to change: ";
+                            string ID;
+                            cin>>ID;
+                            updateGuestAdmin(data,passwordFile,ID);
+                            saveData("testing_ID.txt","testing_Passwords.txt",data,passwordFile);
+                            break;
+                        }
+                        case 2:
+                        {
+                            cout << "Change reservations" << endl;
+                            listactiveID(reservations);
+                            cout<<"Enter ID of user you want to change: ";
+                            string ID;
+                            cin>>ID;
+                            updateReservation(reservations,ID);
+                            saveData("testing_rooms.txt","testing_Passwords.txt",reservations,passwordFile);       
+                            break;
+                        }
+                        case 3:
+                        {
+                            cout << "Log out ;>" << endl;
+                            break;
+                        }
+                        default:
+                        {
+                            cout << "Wrong choice!" << endl;
+                            break;
+                        }
+                    }
                 }
+
                 else if (getType(data,current_user)=="g")
                 {
                     cout << "1. Change your data" << endl;
@@ -76,14 +120,14 @@ int main()
                         case 2:
                         {
                             cout << "Book a room" << endl;
-                            bookRoom(data,current_user);
+                            //bookRoom(data,current_user);
                             saveData("testing_ID.txt","testing_Passwords.txt",data,passwordFile);
                             break;
                         }
                         case 3:
                         {
                             cout << "Check your reservation" << endl;
-                            checkReservation(data,current_user);
+                            //checkReservation(data,current_user);
                             break;
                         }
                         case 4:

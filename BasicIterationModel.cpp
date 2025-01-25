@@ -341,48 +341,82 @@ string getType(const vector<vector<string>>& data, const string& ID) {
     }
     return "x";
 }
-/*
-int main() {
-    cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
-    vector<vector<string>> MainIdFile = readData("testing.ID.txt");
-    vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-/*
-    string input;
-    cout << "Enter the ID to display (e.g., ID003 or 3): ";
-    cin >> input;
 
-    displayData(MainIdFile, input);
-
-    char answer;
-    cout << "Do you want to update an ID? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-        cout << "Enter the ID to update (e.g., ID003 or 3): ";
-        cin >> input;
-        updateGuest(MainIdFile, Passwords, input);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+void listactiveID(const vector<vector<string>>& data){
+    for (const auto& row : data) {
+        if (row[5] != "x") {
+            cout << row[0] << " " << row[1] << " " << row[2] << " " << row[3] << " " << row[4] << " " << row[5] << " " << row[6] << " " << row[7] << " " << row[8] <<  endl;
+        }
+        else if (row[5] != "g")
+        {
+            cout << row[0] << " " << row[1] << " " << row[2] << " " << row[3] << " " << row[4] << " " << row[5] << " "<<  row[6] << " " << row[7] << " " << row[8] << endl;
+        }
+        
     }
+    cout << endl;
+}
 
-    string name, surname, password, current_user = "NULL";
-    while (current_user == "NULL") {
-        cout << "Enter the name: ";
-        cin >> name;
-        cout << "Enter the surname: ";
-        cin >> surname;
-        cout << "Enter the password: ";
-        cin >> password;
-        current_user = login(Passwords, getID(MainIdFile, name, surname), password); // logowanie zwraca ID zalogowanego uzytkownika
+void updateReservation(vector<vector<string>>& reservations, const string& ID) {
+    string IDChecked = FormatID(ID);
+    for (auto& row : reservations) {
+        if (row[0] == IDChecked) {
+            cout << "ID : room number : how many people : status : clean : start : end : name" << endl;
+            string room;
+            cout << "Choose a room to make a reservation with: ";
+            cin >> room;
+            row[2] = room;
+            cout << "Is there a revervation to be made? y/n" << endl;
+            string ongoing;
+            cin >> ongoing;
+            while (ongoing != "y" && ongoing != "n") {
+                cout << "Invalid input. Please enter yes or no." << endl;
+                cin >> ongoing;
+            }
+            if(ongoing == "y")
+            {
+                ongoing = "zajety";
+                row[3] = ongoing;
+                cout << "When does the reservation start? ";
+                string start;
+                cin >> start;
+                cout << "When does the reservation end? ";
+                string end;
+                cin >> end;
+                cout << "Who is the reservation for? ";
+                string name;
+                cin >> name;
+                cout << "Is the room clean? y/n" << endl;
+                string clean;
+                cin >> clean;
+                if(clean == "n")
+                {
+                    clean = "brudny";
+                }
+                else if(clean == "y")
+                {
+                    clean = "czysty";
+                }
+                row[4] = "zarezerwowany";
+                row[5] = clean;
+                row[6] = start;
+                row[7] = end;
+                row[8] = name;
+                cout << "Reservation updated." << endl;
+                return;
+            }
+            
+            else if (ongoing == "n")
+            {
+                row[3] = "wolny";
+                cout << "Reservation updated." << endl;
+                row[6] = "0";
+                row[7] = "0";
+                row[8] = "0";
+                return;
+            }
+            
+            return;
+        }
     }
-    displayData(MainIdFile, current_user);
-
-    char answer;
-    cout << "Do you want to update your profile? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-
-        updateGuestAdmin(MainIdFile, Passwords, current_user);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
-    }
-    //DaPr8MavNIpQriuszzybylski - nowe haslo
-    return 0;
-}*/
+    cout << "No ID under that index" << endl;
+}
