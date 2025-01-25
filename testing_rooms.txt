@@ -35,7 +35,7 @@ ID034 1 4 wolny nie nie 2025-02-22 2025-02-27 Natalie Phillips
 ID035 1 4 zajety zarezerwowany posprzatany 2025-02-23 2025-02-28 Mason Hughes 
 ID036 1 4 wolny nie posprzatany 2025-02-24 2025-03-01 Zoe Stewart 
 ID037 1 4 zajety nie posprzatany 2025-02-25 2025-03-02 Benjamin Murphy 
-ID038 1 4 wolny zarezerwowany nie 2025-02-26 2025-03-03 Lila Rivera 
+ID038 1 204 zajety zarezerwowany Raba 2090-31-29 3100-29-01 Baba Rivera 
 ID039 1 4 zajety zarezerwowany posprzatany 2025-02-27 2025-03-04 Andrew Diaz 
 ID040 1 4 wolny nie posprzatany 2025-02-28 2025-03-05 Ellie Jenkins 
 ID041 1 5 zajety zarezerwowany posprzatany 2025-03-01 2025-03-06 Oliver Bryant 
@@ -47,4 +47,4 @@ ID046 1 5 wolny zarezerwowany posprzatany 2025-03-06 2025-03-11 Victoria Cox
 ID047 1 5 zajety zarezerwowany nie 2025-03-07 2025-03-12 Caleb Howard 
 ID048 1 5 wolny nie posprzatany 2025-03-08 2025-03-13 Scarlett Ramirez 
 ID049 1 210 zajety zarezerwowany brudny 2025-01-26 2025-01-31 Akrus 
-ID050 1 5 y zarezerwowany brudny 2025-03-10 2025-03-15 Charlotte Torres 
+ID050 204 5 zajety zarezerwowany brudny 2025-03-10 2025-03-15 Charlotte Torres 

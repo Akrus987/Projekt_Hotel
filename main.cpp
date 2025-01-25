@@ -79,8 +79,9 @@ int main()
                         {
                             cout << "Change reservations" << endl;
                             listactiveID(reservations);
-                            cout<<"Enter ID of user you want to change: ";
+                            cout<<"Enter ID of user you want to change: " << endl;
                             string ID;
+                            cout << "ID : room number : how many people : status : clean : start : end : name" << endl;
                             cin>>ID;
                             updateReservation(reservations,ID);
                             saveData("testing_rooms.txt","testing_Passwords.txt",reservations,passwordFile);       
