@@ -51,6 +51,53 @@ int main()
                     break;
                 }
                 displayUser(data,current_user);
+                if (getType(data,current_user)=="a")
+                {
+                    cout << "You are admin!" << endl;
+                }
+                else if (getType(data,current_user)=="g")
+                {
+                    cout << "1. Change your data" << endl;
+                    cout << "2. Book a room" << endl;
+                    cout << "3. Check your reservation" << endl;
+                    cout << "4. Log out" << endl;
+                    cout << "--------------------------------" << endl;
+                    cout << "Chose option: ";
+                    cin >> choice;
+                    switch (choice)
+                    {
+                        case 1:
+                        {
+                            cout << "Change your data" << endl;
+                            updateGuest(data,passwordFile,current_user);
+                            saveData("testing_ID.txt","testing_Passwords.txt",data,passwordFile);
+                            break;
+                        }
+                        case 2:
+                        {
+                            cout << "Book a room" << endl;
+                            bookRoom(data,current_user);
+                            saveData("testing_ID.txt","testing_Passwords.txt",data,passwordFile);
+                            break;
+                        }
+                        case 3:
+                        {
+                            cout << "Check your reservation" << endl;
+                            checkReservation(data,current_user);
+                            break;
+                        }
+                        case 4:
+                        {
+                            cout << "Log out" << endl;
+                            break;
+                        }
+                        default:
+                        {
+                            cout << "Wrong choice!" << endl;
+                            break;
+                        }
+                    }
+                }
 
                 break;
             }
