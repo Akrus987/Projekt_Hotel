@@ -11,6 +11,7 @@
 int main()
 {
     vector<vector<string>> data = readData("testing_ID.txt");
+    vector<vector<string>> rooms = readData("testing_rooms.txt");
     vector<vector<string>> passwordFile = readData("testing_Passwords.txt");
     int choice=0;
     bool run=1;
@@ -76,14 +77,14 @@ int main()
                         case 2:
                         {
                             cout << "Book a room" << endl;
-                            bookRoom(data,current_user);
-                            saveData("testing_ID.txt","testing_Passwords.txt",data,passwordFile);
+                            bookRoom(data, rooms, current_user);
+                            saveData("testing_ID.txt","testing_rooms.txt",data,rooms);
                             break;
                         }
                         case 3:
                         {
                             cout << "Check your reservation" << endl;
-                            checkReservation(data,current_user);
+                            //checkReservation(data,current_user);
                             break;
                         }
                         case 4:

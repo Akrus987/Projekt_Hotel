@@ -341,48 +341,77 @@ string getType(const vector<vector<string>>& data, const string& ID) {
     }
     return "x";
 }
-/*
-int main() {
-    cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
-    vector<vector<string>> MainIdFile = readData("testing.ID.txt");
-    vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-/*
-    string input;
-    cout << "Enter the ID to display (e.g., ID003 or 3): ";
-    cin >> input;
 
-    displayData(MainIdFile, input);
-
-    char answer;
-    cout << "Do you want to update an ID? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-        cout << "Enter the ID to update (e.g., ID003 or 3): ";
-        cin >> input;
-        updateGuest(MainIdFile, Passwords, input);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+bool isValidDate(const string& date) {
+    if (date.length() != 10) {
+        return false;
     }
-
-    string name, surname, password, current_user = "NULL";
-    while (current_user == "NULL") {
-        cout << "Enter the name: ";
-        cin >> name;
-        cout << "Enter the surname: ";
-        cin >> surname;
-        cout << "Enter the password: ";
-        cin >> password;
-        current_user = login(Passwords, getID(MainIdFile, name, surname), password); // logowanie zwraca ID zalogowanego uzytkownika
+    if (date[4] != '-' || date[7] != '-') {
+        return false;
     }
-    displayData(MainIdFile, current_user);
-
-    char answer;
-    cout << "Do you want to update your profile? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-
-        updateGuestAdmin(MainIdFile, Passwords, current_user);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+    for (int i = 0; i < 10; ++i) {
+        if (i == 4 || i == 7) {
+            continue;
+        }
+        if (!isdigit(date[i])) {
+            return false;
+        }
     }
-    //DaPr8MavNIpQriuszzybylski - nowe haslo
-    return 0;
-}*/
+    return true;
+}
+
+void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const string& ID) {
+    string IDChecked = FormatID(ID);
+    for (auto& row : data) {
+        if (row[0] == IDChecked) {
+            int people;
+            cout << "Enter the number of people (1-5): ";
+            cin >> people;
+            while (people <= 0 && people > 5) {
+                cout << "Invalid number of people." << endl;
+                cout << "Enter the number of people: ";
+                cin >> people;
+            }
+            stringstream ss;
+            ss << people;
+            string str_people = ss.str();
+
+            string startDate, endDate;
+            cout << "Enter the start date (YYYY-MM-DD): ";
+            cin >> startDate;
+            while (!isValidDate(startDate)) {
+                cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+                cout << "Enter the start date (YYYY-MM-DD): ";
+                cin >> startDate;
+            }
+            cout << "Enter the end date (YYYY-MM-DD): ";
+            cin >> endDate;
+            while (!isValidDate(endDate)) {
+                cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+                cout << "Enter the end date (YYYY-MM-DD): ";
+                cin >> endDate;
+            }
+
+            bool roomFound = false;
+            for (auto& room : rooms) {
+                if (room[1] == str_people && room[3] == "nie") {
+                    row[4] = room[1];
+                    cout << "Room " << room[1] << " has been successfully booked." << endl;
+                    roomFound = true;
+                    room[3] = "zarezerwowany";
+                    room[6] = startDate;
+                    room[7] = endDate;
+                    room[8] = row[1];
+                    room[9] = row[2];
+                    break;
+                }
+            }
+
+            if (!roomFound) {
+                cout << "No available room found for " << people << " people from " << startDate << " to " << endDate << "." << endl;
+            }
+            return;
+        }
+    }
+    cout << "No ID under that index" << endl;
+}
