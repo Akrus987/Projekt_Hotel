@@ -345,26 +345,45 @@ string getType(const vector<vector<string>>& data, const string& ID) {
 void listactiveID(const vector<vector<string>>& data){
     for (const auto& row : data) {
         if (row[5] != "x") {
-            cout << row[0] << " " << row[1] << " " << row[2] << " " << row[3] << " " << row[4] << " " << row[5] << " " << row[6] << " " << row[7] << " " << row[8] <<  endl;
+            for(int i = 0; i < row.size(); i++)
+            {
+                cout << row[i] << " ";
+            }
+            cout << endl;
         }
         else if (row[5] != "g")
         {
-            cout << row[0] << " " << row[1] << " " << row[2] << " " << row[3] << " " << row[4] << " " << row[5] << " "<<  row[6] << " " << row[7] << " " << row[8] << endl;
-        }
+            for(int i = 0; i < row.size(); i++)
+            {
+                cout << row[i] << " ";
+            }
+            cout << endl;
         
     }
     cout << endl;
-}
+}}
+
+bool isDateValid( std::vector<int> time ) {
+    if( time[0] < 2024 || time[0] > 2030 ) return false; //year
+    if( time[1]> 12) return false; //month
+    if( time[2]> 31 ) return false; //day
+    if( time[2] == 31 && ( time[1] == 4 || time[1] == 6 || time[1] == 9 || time[1] == 11 ) ) return false; //30 days in Apr, Jun, Sen, Nov
+    if( time[1] == 2) {
+      if( time[2] > 29 ) return false;
+      if( time[2] == 29 && ( ( time[0]%100 )%4 != 0) ) return false;
+    } //Feb
+    return true;
+    }
 
 void updateReservation(vector<vector<string>>& reservations, const string& ID) {
     string IDChecked = FormatID(ID);
     for (auto& row : reservations) {
         if (row[0] == IDChecked) {
-            cout << "ID : room number : how many people : status : clean : start : end : name" << endl;
+            
             string room;
             cout << "Choose a room to make a reservation with: ";
             cin >> room;
-            row[2] = room;
+            row[1] = room;
             cout << "Is there a revervation to be made? y/n" << endl;
             string ongoing;
             cin >> ongoing;
@@ -376,12 +395,34 @@ void updateReservation(vector<vector<string>>& reservations, const string& ID) {
             {
                 ongoing = "zajety";
                 row[3] = ongoing;
-                cout << "When does the reservation start? ";
-                string start;
-                cin >> start;
-                cout << "When does the reservation end? ";
-                string end;
-                cin >> end;
+                cout << "When does the reservation start? YYYY MM DD  ";
+                vector<int> start = {0,0,0};
+                int day, month, year;
+                cin>> day >> month >> year;
+                if(isDateValid(start) == false)
+                {
+                    cout << "Invalid date." << endl;
+                    return;
+                }
+                start[0] = year;
+                start[1] = month;
+                start[2] = day;
+                
+                cout << "When does the reservation end? YYYY MM DD ";
+                vector<int> end = {0,0,0};
+                int day_2;
+                int month_2;
+                int year_2;
+                cin>> day_2 >> month_2 >> year_2;
+                if(isDateValid(end) == false)
+                {
+                    cout << "Invalid date." << endl;
+                    return;
+                }
+                end[0] = year_2;
+                end[1] = month_2;
+                end[2] = day_2;
+
                 cout << "Who is the reservation for? ";
                 string name;
                 cin >> name;
@@ -398,8 +439,8 @@ void updateReservation(vector<vector<string>>& reservations, const string& ID) {
                 }
                 row[4] = "zarezerwowany";
                 row[5] = clean;
-                row[6] = start;
-                row[7] = end;
+                row[6] = "(" + to_string(start[0]) + "/" + to_string(start[1]) + "/" + to_string(start[2]) + ")";
+                row[7] = "(" + to_string(end[0]) + "/" + to_string(end[1]) + "/" + to_string(end[2]) + ")";
                 row[8] = name;
                 cout << "Reservation updated." << endl;
                 return;
@@ -420,3 +461,4 @@ void updateReservation(vector<vector<string>>& reservations, const string& ID) {
     }
     cout << "No ID under that index" << endl;
 }
+
