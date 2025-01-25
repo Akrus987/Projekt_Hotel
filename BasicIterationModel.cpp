@@ -399,11 +399,11 @@ void updateReservation(vector<vector<string>>& reservations, const string& ID) {
                 vector<int> start = {0,0,0};
                 int day, month, year;
                 cin>> day >> month >> year;
-                if(isDateValid(start) == false)
+                /*if(isDateValid(start) == false)
                 {
                     cout << "Invalid date." << endl;
                     return;
-                }
+                }*/
                 start[0] = year;
                 start[1] = month;
                 start[2] = day;
@@ -414,11 +414,11 @@ void updateReservation(vector<vector<string>>& reservations, const string& ID) {
                 int month_2;
                 int year_2;
                 cin>> day_2 >> month_2 >> year_2;
-                if(isDateValid(end) == false)
+                /*if(isDateValid(end) == false)
                 {
                     cout << "Invalid date." << endl;
                     return;
-                }
+                }*/
                 end[0] = year_2;
                 end[1] = month_2;
                 end[2] = day_2;

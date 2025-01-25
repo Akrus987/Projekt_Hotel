@@ -47,4 +47,4 @@ ID046 1 5 wolny zarezerwowany posprzatany 2025-03-06 2025-03-11 Victoria Cox
 ID047 1 5 zajety zarezerwowany nie 2025-03-07 2025-03-12 Caleb Howard 
 ID048 1 5 wolny nie posprzatany 2025-03-08 2025-03-13 Scarlett Ramirez 
 ID049 1 210 zajety zarezerwowany brudny 2025-01-26 2025-01-31 Akrus 
-ID050 204 5 zajety zarezerwowany brudny 2025-03-10 2025-03-15 Charlotte Torres 
+ID050 204 5 zajety zarezerwowany czysty (21/12/2024) (23/12/2024) Mati Torres 
