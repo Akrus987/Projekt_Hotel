@@ -315,7 +315,7 @@ string login(const vector<vector<string>>& passwords, const string& ID, const st
 }
 
 void new_user(vector<vector<string>>& data, vector<vector<string>>& passwords) {
-    string ID, name, surname, age, type="g";
+    string ID="0", name, surname, age, type="g";
     for (const auto& row : data) 
     {
         if (row[5] == "x")
@@ -324,34 +324,13 @@ void new_user(vector<vector<string>>& data, vector<vector<string>>& passwords) {
             break;
         }
     }
-
-    cout << "Enter the name: ";
-    cin >> name;
-    while (!isValidName(name)) {
-        cout << "Invalid name. It must be between 2 and 25 characters and contain only letters." << endl;
-        cout << "Enter the name: ";
-        cin >> name;
+    if (ID == "0") 
+    {
+        cout << "No more space for new users." << endl;
+        return;
     }
-    cout << "Enter the surname: ";
-    cin >> surname;
-    while (!isValidName(surname)) {
-        cout << "Invalid surname. It must be between 2 and 25 characters and contain only letters." << endl;
-        cout << "Enter the surname: ";
-        cin >> surname;
-    }
-    cout << "Enter the age: ";
-    cin >> age;
-    while (!isValidNumber(age)) {
-        cout << "Invalid age. It must contain only numbers." << endl;
-        cout << "Enter the age: ";
-        cin >> age;
-    }
-
-    string Pass = GeneratePassword(name, surname);
-    string Password = HashPassword(Pass);
-    data.push_back({ID, name, surname, age, "0", "g"});
-    passwords.push_back({ID, Password});
-    cout << "Generated Password: " << Pass << endl;
+    updateGuest(data, passwords, ID);
+    
 }
 
 string getType(const vector<vector<string>>& data, const string& ID) {

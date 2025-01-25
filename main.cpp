@@ -30,7 +30,8 @@ int main()
             {
                 cout << "---Registration---" << endl;
                 new_user(data,passwordFile);
-                break;   
+                saveData("testing_ID.txt","testing_Passwords.txt",data,passwordFile);
+                break;  
             }
             case 2:
             {
@@ -66,5 +67,6 @@ int main()
             }
         }
     }
+
     return 0;
 }
