@@ -297,6 +297,7 @@ string login(const vector<vector<string>>& passwords, const string& ID, const st
             cout << "No user with this name and surname." << endl;
             return "NULL";
         }
+
         for (const auto& passRow : passwords) {
             if (passRow[0] == ID) {
                 if (UnhashPassword(passRow[1]) == password) {
@@ -353,6 +354,14 @@ void new_user(vector<vector<string>>& data, vector<vector<string>>& passwords) {
     cout << "Generated Password: " << Pass << endl;
 }
 
+string getType(const vector<vector<string>>& data, const string& ID) {
+    for (const auto& row : data) {
+        if (row[0] == ID) {
+            return row[5];
+        }
+    }
+    return "x";
+}
 /*
 int main() {
     cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
