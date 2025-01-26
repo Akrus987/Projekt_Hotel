@@ -19,7 +19,7 @@ ID018 18 2 wolny nie posprzatany 2025-02-06 2025-02-11 Sophia Scott
 ID019 19 2 zajety zarezerwowany posprzatany 2025-02-07 2025-02-12 Michael Hall 
 ID020 20 2 wolny nie nie 2025-02-08 2025-02-13 Ava Allen 
 ID021 21 3 zajety zarezerwowany posprzatany 2025-02-09 2025-02-14 Lucas Perez 
-ID022 22 3 wolny zarezerwowany nie 2025-08-13 2025-09-13 P D 
+ID022 22 3 wolny zarezerwowany nie 2025-08-13 2029-11-21 P D 
 ID023 23 3 zajety nie nie 2025-02-11 2025-02-16 Alexander Harris 
 ID024 24 3 wolny zarezerwowany posprzatany 2025-02-12 2025-02-17 Isabella Baker 
 ID025 25 3 zajety nie nie 2025-02-13 2025-02-18 Ethan Thompson 
