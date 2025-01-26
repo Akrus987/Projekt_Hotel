@@ -483,7 +483,6 @@ bool isDateGreater(const string& date1, const string& date2) {
     return false;
 }
 
-
 void updateReservation(vector<vector<string>>& reservations, const string& ID) {
     string IDChecked = FormatID(ID);
     for (auto& row : reservations) {
@@ -619,6 +618,10 @@ void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const
     cout << "No ID under that index" << endl;
 }
 
+int checkdays(const string& start, const string& end);
+int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju);
+
+
 void checkReservation(vector<vector<string>>& data, vector<vector<string>>& reservations, string& ID) {
     string IDChecked = FormatID(ID);
     string room = "0";
@@ -641,6 +644,9 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
             cout << "Start date: " << row[6] << endl;
             cout << "End date: " << row[7] << endl;
             cout << "Name: " << row[8] << " " << row[9] << endl;
+            cout << "Current number of days staying: " << checkdays(row[6], row[7]) << endl;
+            cout << "Current price for reservation: " << calculateprice(reservations, stoi(row[1])) << "$"<< endl;
+            cout << "---------------------" << endl;
 
             int choice;
             cout << "Would you like to:" << endl;
@@ -696,6 +702,7 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
 bool isLeapYear(int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
+
 int daysInMonth(int year, int month) {
     switch (month) {
         case 1: case 3: case 5: case 7: case 8: case 10: case 12:
@@ -760,6 +767,7 @@ int checkdays(const string& start, const string& end) {
     cout << "Number of days: " << days << endl;
     return days;
 }
+
 int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju)
 
 {
