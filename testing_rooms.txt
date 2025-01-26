@@ -1,50 +1,50 @@
-ID001 1 zajety nie posprzatany 2025-01-20 2025-01-25 Baba Raba
-ID002 1 wolny zarezerwowany posprzatany 2025-01-21 2025-01-26 Alexa Siri
-ID003 1 zajety nie nie 2025-01-22 2025-01-27 John Smith
-ID004 1 wolny nie posprzatany 2025-01-23 2025-01-28 Emily Huston
-ID005 1 zajety zarezerwowany nie 2025-01-24 2025-01-29 David Wilson
-ID006 1 wolny nie posprzatany 2025-01-25 2025-01-30 Sarah Brown
-ID007 1 zajety zarezerwowany posprzatany 2025-01-26 2025-01-31 Chris Taylor
-ID008 1 wolny nie nie 2025-01-27 2025-02-01 Anna Moore
-ID009 1 zajety zarezerwowany posprzatany 2025-01-28 2025-02-02 James Anderson
-ID010 1 wolny nie posprzatany 2025-01-29 2025-02-03 Maria Martinez
-ID011 2 zajety nie nie 2025-01-30 2025-02-04 Robert Lee
-ID012 2 wolny zarezerwowany posprzatany 2025-01-31 2025-02-05 Laura Harris
-ID013 2 zajety nie posprzatany 2025-02-01 2025-02-06 Kevin Clark
-ID014 2 wolny nie posprzatany 2025-02-02 2025-02-07 Emma Lewis
-ID015 2 zajety zarezerwowany posprzatany 2025-02-03 2025-02-08 William Walker
-ID016 2 wolny nie nie 2025-02-04 2025-02-09 Olivia Young
-ID017 2 zajety zarezerwowany nie 2025-02-05 2025-02-10 Daniel King
-ID018 2 wolny nie posprzatany 2025-02-06 2025-02-11 Sophia Scott
-ID019 2 zajety zarezerwowany posprzatany 2025-02-07 2025-02-12 Michael Hall
-ID020 2 wolny nie nie 2025-02-08 2025-02-13 Ava Allen
-ID021 3 zajety zarezerwowany posprzatany 2025-02-09 2025-02-14 Lucas Perez
-ID022 3 wolny nie posprzatany 2025-02-10 2025-02-15 Chloe White
-ID023 3 zajety nie nie 2025-02-11 2025-02-16 Alexander Harris
-ID024 3 wolny zarezerwowany posprzatany 2025-02-12 2025-02-17 Isabella Baker
-ID025 3 zajety nie nie 2025-02-13 2025-02-18 Ethan Thompson
-ID026 3 wolny zarezerwowany posprzatany 2025-02-14 2025-02-19 Mia Rodriguez
-ID027 3 zajety nie nie 2025-02-15 2025-02-20 Piotr Przybylski
-ID028 3 wolny zarezerwowany posprzatany 2025-02-16 2025-02-21 Ella Campbell
-ID029 3 zajety nie posprzatany 2025-02-17 2025-02-22 Henry Cooper
-ID030 3 wolny zarezerwowany nie 2025-02-18 2025-02-23 Lily Sanchez
-ID031 4 zajety nie posprzatany 2025-02-19 2025-02-24 Noah Parker
-ID032 4 wolny nie posprzatany 2025-02-20 2025-02-25 Grace Wood
-ID033 4 zajety zarezerwowany posprzatany 2025-02-21 2025-02-26 Samuel Adams
-ID034 4 wolny nie nie 2025-02-22 2025-02-27 Natalie Phillips
-ID035 4 zajety zarezerwowany posprzatany 2025-02-23 2025-02-28 Mason Hughes
-ID036 4 wolny nie posprzatany 2025-02-24 2025-03-01 Zoe Stewart
-ID037 4 zajety nie posprzatany 2025-02-25 2025-03-02 Benjamin Murphy
-ID038 4 wolny zarezerwowany nie 2025-02-26 2025-03-03 Lila Rivera
-ID039 4 zajety zarezerwowany posprzatany 2025-02-27 2025-03-04 Andrew Diaz
-ID040 4 wolny nie posprzatany 2025-02-28 2025-03-05 Ellie Jenkins
-ID041 5 zajety zarezerwowany posprzatany 2025-03-01 2025-03-06 Oliver Bryant
-ID042 5 wolny nie nie 2025-03-02 2025-03-07 Leah Simmons
-ID043 5 zajety zarezerwowany posprzatany 2025-03-03 2025-03-08 Joshua Gray
-ID044 5 wolny nie posprzatany 2025-03-04 2025-03-09 Hannah Ward
-ID045 5 zajety nie nie 2025-03-05 2025-03-10 Dylan Peterson
-ID046 5 wolny zarezerwowany posprzatany 2025-03-06 2025-03-11 Victoria Cox
-ID047 5 zajety zarezerwowany nie 2025-03-07 2025-03-12 Caleb Howard
-ID048 5 wolny nie posprzatany 2025-03-08 2025-03-13 Scarlett Ramirez
-ID049 5 zajety nie posprzatany 2025-03-09 2025-03-14 Nathan Bell
-ID050 5 wolny zarezerwowany posprzatany 2025-03-10 2025-03-15 Charlotte Torres
+ID001 1 1 wolny zarezerwowany nie 2025-03-03 2025-03-05 D P 
+ID002 2 1 wolny zarezerwowany posprzatany 2025-01-21 2025-01-26 Alexa Siri 
+ID003 3 1 zajety nie nie 2025-01-22 2025-01-27 John Smith 
+ID004 4 1 wolny nie posprzatany 2025-01-23 2025-01-28 Emily Huston 
+ID005 5 1 zajety zarezerwowany nie 2025-01-24 2025-01-29 David Wilson 
+ID006 6 1 wolny nie posprzatany 2025-01-25 2025-01-30 Sarah Brown 
+ID007 7 1 zajety zarezerwowany posprzatany 2025-01-26 2025-01-31 Chris Taylor 
+ID008 8 1 wolny nie nie 2025-01-27 2025-02-01 Anna Moore 
+ID009 9 1 zajety zarezerwowany posprzatany 2025-01-28 2025-02-02 James Anderson 
+ID010 10 1 wolny nie posprzatany 2025-01-29 2025-02-03 Maria Martinez 
+ID011 11 2 zajety nie nie 2025-01-30 2025-02-04 Robert Lee 
+ID012 12 2 wolny zarezerwowany posprzatany 2025-01-31 2025-02-05 Laura Harris 
+ID013 13 2 zajety nie posprzatany 2025-02-01 2025-02-06 Kevin Clark 
+ID014 14 2 wolny nie posprzatany 2025-02-02 2025-02-07 Emma Lewis 
+ID015 15 2 zajety zarezerwowany posprzatany 2025-02-03 2025-02-08 William Walker 
+ID016 16 2 wolny nie nie 2025-02-04 2025-02-09 Olivia Young 
+ID017 17 2 zajety zarezerwowany nie 2025-02-05 2025-02-10 Daniel King 
+ID018 18 2 wolny nie posprzatany 2025-02-06 2025-02-11 Sophia Scott 
+ID019 19 2 zajety zarezerwowany posprzatany 2025-02-07 2025-02-12 Michael Hall 
+ID020 20 2 wolny nie nie 2025-02-08 2025-02-13 Ava Allen 
+ID021 21 3 zajety zarezerwowany posprzatany 2025-02-09 2025-02-14 Lucas Perez 
+ID022 22 3 wolny zarezerwowany nie 2025-08-13 2029-11-21 P D 
+ID023 23 3 zajety nie nie 2025-02-11 2025-02-16 Alexander Harris 
+ID024 24 3 wolny zarezerwowany posprzatany 2025-02-12 2025-02-17 Isabella Baker 
+ID025 25 3 zajety nie nie 2025-02-13 2025-02-18 Ethan Thompson 
+ID026 26 3 wolny zarezerwowany posprzatany 2025-02-14 2025-02-19 Mia Rodriguez 
+ID027 22 3 zajety zarezerwowany czysty 2025-07-14 2025-07-15 P Przybylski 
+ID028 28 3 wolny zarezerwowany posprzatany 2025-02-16 2025-02-21 Ella Campbell 
+ID029 29 3 zajety nie posprzatany 2025-02-17 2025-02-22 Henry Cooper 
+ID030 30 3 wolny zarezerwowany nie 2025-02-18 2025-02-23 Lily Sanchez 
+ID031 309 4 zajety zarezerwowany czysty 2024-30-21 2024-30-25 Alex Parker 
+ID032 31 4 wolny nie posprzatany 2025-02-20 2025-02-25 Grace Wood 
+ID033 32 4 zajety zarezerwowany posprzatany 2025-02-21 2025-02-26 Samuel Adams 
+ID034 33 4 wolny nie nie 2025-02-22 2025-02-27 Natalie Phillips 
+ID035 34 4 zajety zarezerwowany posprzatany 2025-02-23 2025-02-28 Mason Hughes 
+ID036 35 4 wolny nie posprzatany 2025-02-24 2025-03-01 Zoe Stewart 
+ID037 36 4 zajety nie posprzatany 2025-02-25 2025-03-02 Benjamin Murphy 
+ID038 37 4 zajety zarezerwowany Raba 2090-31-29 3100-29-01 Baba Rivera 
+ID039 38 4 zajety zarezerwowany posprzatany 2025-02-27 2025-03-04 Andrew Diaz 
+ID040 39 4 wolny nie posprzatany 2025-02-28 2025-03-05 Ellie Jenkins 
+ID041 40 5 zajety zarezerwowany posprzatany 2025-03-01 2025-03-06 Oliver Bryant 
+ID042 41 5 wolny nie nie 2025-03-02 2025-03-07 Leah Simmons 
+ID043 42 5 zajety zarezerwowany posprzatany 2025-03-03 2025-03-08 Joshua Gray 
+ID044 43 5 wolny nie posprzatany 2025-03-04 2025-03-09 Hannah Ward 
+ID045 44 5 zajety nie nie 2025-03-05 2025-03-10 Dylan Peterson 
+ID046 45 5 wolny zarezerwowany posprzatany 2025-03-06 2025-03-11 Victoria Cox 
+ID047 46 5 zajety zarezerwowany nie 2025-03-07 2025-03-12 Caleb Howard 
+ID048 20 5 zajety zarezerwowany czysty 2024-12-1 2023-11-2 Mom Ramirez 
+ID049 48 5 zajety zarezerwowany brudny 2025-01-26 2025-01-31 Akrus 
+ID050 204 5 zajety zarezerwowany czysty (21/12/2024) (23/12/2024) Mati Torres 

@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <cctype>
+#include <ctime>
 #include "BasicPasswordGenerator.h"
 
 // Function declaration
@@ -341,48 +342,417 @@ string getType(const vector<vector<string>>& data, const string& ID) {
     }
     return "x";
 }
-/*
-int main() {
-    cout<<HashPassword("JoSmZ1Vf0ml*hnith")<<endl;
-    vector<vector<string>> MainIdFile = readData("testing.ID.txt");
-    vector<vector<string>> Passwords = readData("testing_Passwords.txt");
-/*
-    string input;
-    cout << "Enter the ID to display (e.g., ID003 or 3): ";
-    cin >> input;
 
-    displayData(MainIdFile, input);
+void listactiveID(const vector<vector<string>>& data){
+    for (const auto& row : data) {
+        if (row[5] != "x") {
+            for(int i = 0; i < row.size(); i++)
+            {
+                cout << row[i] << " ";
+            }
+            cout << endl;
+        }
+        else if (row[5] != "g")
+        {
+            for(int i = 0; i < row.size(); i++)
+            {
+                cout << row[i] << " ";
+            }
+            cout << endl;
+        
+    }
+    cout << endl;
+}}
 
-    char answer;
-    cout << "Do you want to update an ID? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
-        cout << "Enter the ID to update (e.g., ID003 or 3): ";
-        cin >> input;
-        updateGuest(MainIdFile, Passwords, input);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+
+vector<int> convertDateStringToIntVector(const string& date) {
+    vector<int> dateVector(3);
+    stringstream ss(date);
+    char delimiter;
+
+    ss >> dateVector[0] >> delimiter >> dateVector[1] >> delimiter >> dateVector[2];
+
+    return dateVector;
+}
+
+bool isDateGood( std::vector<int> time ) {
+    if( time[1]> 12) return false; //miesiac
+    if( time[2]> 31 ) return false; //dzien
+    if( time[2] == 31 && ( time[1] == 4 || time[1] == 6 || time[1] == 9 || time[1] == 11 ) ) return false; //30 dzni in Apr, Jun, Sen, Nov
+    if( time[1] == 2) {
+      if( time[2] > 29 ) return false;
+      if( time[2] == 29 && ( ( time[0]%100 )%4 != 0) ) return false;
+    } //luty
+    return true;
+    }
+//poprawnosc formatu daty
+bool isValidDate(const string& date) {
+    if (date.length() != 10) {
+        return false;
+    }
+    if (date[4] != '-' || date[7] != '-') {
+        return false;
+    }
+    for (int i = 0; i < 10; ++i) {
+        if (i == 4 || i == 7) {
+            continue;
+        }
+        if (!isdigit(date[i])) {
+            return false;
+        }
+    }
+    if (isDateGood(convertDateStringToIntVector(date))) {
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+
+
+// funkcja sprawdza czy data jest przynajmniej jeden tydzien w przyszlosci
+bool isDateCorrect(const string& date) {
+    if (!isValidDate(date)) {
+        cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+        return false;
     }
 
-    string name, surname, password, current_user = "NULL";
-    while (current_user == "NULL") {
-        cout << "Enter the name: ";
-        cin >> name;
-        cout << "Enter the surname: ";
-        cin >> surname;
-        cout << "Enter the password: ";
-        cin >> password;
-        current_user = login(Passwords, getID(MainIdFile, name, surname), password); // logowanie zwraca ID zalogowanego uzytkownika
-    }
-    displayData(MainIdFile, current_user);
+    // aktualna data
+    time_t t = time(nullptr);
+    tm* currentTime = localtime(&t);
 
-    char answer;
-    cout << "Do you want to update your profile? (y/n): ";
-    cin >> answer;
-    if (answer == 'y' || answer == 'Y') {
+    // aktualna data + tydzien
+    const int tydzien = 7 * 24 * 60 * 60;
+    t += tydzien;
+    tm* futureTime = localtime(&t);
 
-        updateGuestAdmin(MainIdFile, Passwords, current_user);
-        saveData("testing_ID.txt", "testing_Passwords.txt", MainIdFile, Passwords);
+    int futureYear = futureTime->tm_year + 1900;
+    int futureMonth = futureTime->tm_mon + 1;
+    int futureDay = futureTime->tm_mday;
+
+    
+    int year, month, day;
+    sscanf(date.c_str(), "%d-%d-%d", &year, &month, &day);
+
+    // porownanie dat
+    if (year < futureYear) {
+        return false;
+    } else if (year == futureYear) {
+        if (month < futureMonth) {
+            return false;
+        } else if (month == futureMonth) {
+            if (day < futureDay) {
+                return false;
+            }
+        }
     }
-    //DaPr8MavNIpQriuszzybylski - nowe haslo
-    return 0;
-}*/
+
+    return true;
+}
+
+bool isDateGreater(const string& date1, const string& date2) {
+    // czy daty sa poprawne
+    if (!isValidDate(date1) || !isValidDate(date2)) {
+        cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+        return false;
+    }
+
+    //data 1
+    int year1, month1, day1;
+    sscanf(date1.c_str(), "%d-%d-%d", &year1, &month1, &day1);
+
+    //data 2
+    int year2, month2, day2;
+    sscanf(date2.c_str(), "%d-%d-%d", &year2, &month2, &day2);
+
+    // poriwnanie dat
+    if (year1 > year2) {
+        return true;
+    } 
+    else if (year1 == year2) {
+        if (month1 > month2) {
+            return true;
+        } else if (month1 == month2) {
+            if (day1 > day2) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+void updateReservation(vector<vector<string>>& reservations, const string& room) {
+
+    for (auto& row : reservations) {
+        if (row[1] == room) {
+            bool x = true;
+            while (x) {
+                cout << "1. Lenghten stay" << endl;
+                cout << "2. Shorten stay" << endl;
+                cout << "3. Go back" << endl;
+                int choice;
+                cout << "Chose option: ";
+                cin >> choice;
+                if (choice == 1) {
+                    string endDate;
+                    cout << "Enter the new end date (YYYY-MM-DD): ";
+                    cin >> endDate;
+                    while (!isDateGreater(endDate, row[7])) {
+                        cout << "Date must be grater than current end date." << endl;
+                        cout << "Enter the new end date (YYYY-MM-DD): ";
+                        cin >> endDate;
+                    }
+                    row[7] = endDate;
+                    cout << "Stay lenghtened." << endl;
+                    return;
+                } else if (choice == 2) {
+                    string endDate;
+                    cout << "Enter the new end date (YYYY-MM-DD): ";
+                    cin >> endDate;
+                    while (!isDateGreater(row[7], endDate) || !isDateGreater(endDate, row[6])) {
+                        cout << "Date must be less than current end date." << endl;
+                        cout << "Enter the new start date (YYYY-MM-DD): ";
+                        cin >> endDate;
+                    }
+                    row[7] = endDate;
+                    cout << "Stay shortened." << endl;
+                    return;
+                } else if (choice == 3) {
+                    //cout << "Going back to the previous menu." << endl;
+                    return;
+                } else {
+                    cout << "Wrong choice!" << endl;
+                }
+            }
+            cout << "1. Lenghten stay" << endl;
+            cout << "2. Shorten stay" << endl;
+        } 
+    }
+    cout << "No ID under that index" << endl;
+}
+void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const string& ID) {
+    string IDChecked = FormatID(ID);
+    for (auto& row : data) {
+        if (row[0] == IDChecked) {
+            if (row[4] != "0") {
+                cout << "You already have a room booked." << endl;
+                return;
+            }
+            int people;
+            cout << "Enter the number of people (1-5): ";
+            cin >> people;
+            while (people <= 0 || people > 5) {
+                cout << "Invalid number of people." << endl;
+                cout << "Enter the number of people: ";
+                cin >> people;
+            }
+            stringstream ss;
+            ss << people;
+            string str_people = ss.str();
+
+            string startDate, endDate;
+            cout << "Enter the start date (YYYY-MM-DD): ";
+            cin >> startDate;
+            while (!isDateCorrect(startDate)) {
+                cout << "Date must be at least 7 days in the future" << endl;
+                cout << "Enter the start date (YYYY-MM-DD): ";
+                cin >> startDate;
+            }
+            cout << "Enter the end date (YYYY-MM-DD): ";
+            cin >> endDate;
+            while (!isDateGreater(endDate, startDate)) {
+                cout << "Date must be grater than start date." << endl;
+                cout << "Enter the end date (YYYY-MM-DD): ";
+                cin >> endDate;
+            }
+
+            bool roomFound = false;
+            for (auto& room : rooms) {
+                if (room[2] == str_people && room[4] == "nie") {
+                    row[4] = room[1];
+                    cout << "Room " << room[1] << " has been successfully booked." << endl;
+                    roomFound = true;
+                    room[4] = "zarezerwowany";
+                    room[6] = startDate;
+                    room[7] = endDate;
+                    room[8] = row[1];
+                    room[9] = row[2];
+                    break;
+}
+            }
+
+            if (!roomFound) {
+                cout << "No available room found for " << people << " people from " << startDate << " to " << endDate << "." << endl;
+            }
+            return;
+        }
+    }
+    cout << "No ID under that index" << endl;
+}
+
+int checkdays(const string& start, const string& end);
+int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju);
+
+
+void checkReservation(vector<vector<string>>& data, vector<vector<string>>& reservations, string& ID) {
+    string IDChecked = FormatID(ID);
+    string room = "0";
+    for (const auto& row : data) {
+        if (row[0] == IDChecked) {
+            room = row[4];
+            break;
+        }
+    }
+    
+    
+    
+    for (auto& row : reservations) {
+        if (row[1] == room) {
+
+            cout << "--------Info---------" << endl;
+            cout << "Room number: " << row[1] << endl;
+            cout << "Number of people: " << row[2] << endl;
+            //cout << "Status: " << row[3] << endl;
+            //cout << "Clean: " << row[4] << endl;
+            cout << "Start date: " << row[6] << endl;
+            cout << "End date: " << row[7] << endl;
+            cout << "Name: " << row[8] << " " << row[9] << endl;
+            cout << "Current number of days staying: " << checkdays(row[6], row[7]) << endl;
+            cout << "Current price for reservation: " << calculateprice(reservations, stoi(row[1])) << "$"<< endl;
+            cout << "---------------------" << endl;
+
+            int choice;
+            cout << "Would you like to:" << endl;
+            cout << "1. Change reservation details" << endl;
+            cout << "2. Cancel reservation" << endl;
+            cout << "3. Go back" << endl;
+            cout << "Chose option: ";
+            cin >> choice;
+
+            switch (choice) {
+                case 1:
+                {
+                    cout << "Change reservation details" << endl;
+                    updateReservation(reservations, room);
+                    break;
+                }
+                case 2:
+                {
+                    cout << "Cancel reservation" << endl;
+                    row[3] = "wolny";
+                    row[4] = "nie";
+                    row[5] = "nie";
+                    row[6] = "0";
+                    row[7] = "0";
+                    row[8] = "0";
+                    row[9] = "0";
+                    for (auto& guest : data) {
+                        if (guest[0] == IDChecked) {
+                            guest[4] = "0";
+                            break;
+                        }
+                    }
+                    cout << "Reservation canceled." << endl;
+                    break;
+                }
+                case 3:
+                {
+                    cout << "Going back to the previous menu." << endl;
+                    return;
+                }
+                default:
+                {
+                    cout << "Wrong choice!" << endl;
+                    break;
+                }
+            }
+            return;
+        }
+    }
+    cout << "You do not have any booked rooms." << endl;
+}
+
+
+bool isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+
+int daysInMonth(int year, int month) {
+    switch (month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            return 31;
+        case 4: case 6: case 9: case 11:
+            return 30;
+        case 2:
+            return isLeapYear(year) ? 29 : 28;
+        default:
+            return 0;
+    }
+}
+
+int checkdays(const string& start, const string& end) {
+    vector<int> startDate = convertDateStringToIntVector(start);
+    vector<int> endDate = convertDateStringToIntVector(end);
+
+    int startYear = startDate[0];
+    int startMonth = startDate[1];
+    int startDay = startDate[2];
+
+    int endYear = endDate[0];
+    int endMonth = endDate[1];
+    int endDay = endDate[2];
+
+    int days = 0;
+
+    // If the dates are in the same month and year
+    if (startYear == endYear && startMonth == endMonth) {
+        days = endDay - startDay;
+    } else {
+        // Calculate days remaining in the start month
+        days += daysInMonth(startYear, startMonth) - startDay;
+
+        // Add days for the months in between
+        for (int month = startMonth + 1; month < endMonth; ++month) {
+            days += daysInMonth(startYear, month);
+        }
+
+        // Add days for the end month
+        days += endDay;
+
+        // If the dates are in different years
+        if (startYear != endYear) {
+            // Add days for the months in the start year
+            for (int month = startMonth + 1; month <= 12; ++month) {
+                days += daysInMonth(startYear, month);
+            }
+
+            // Add days for the months in the end year
+            for (int month = 1; month < endMonth; ++month) {
+                days += daysInMonth(endYear, month);
+            }
+
+            // Add days for the years in between
+            for (int year = startYear + 1; year < endYear; ++year) {
+                days += isLeapYear(year) ? 366 : 365;
+            }
+        }
+    }
+
+
+    return days;
+}
+
+int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju) {
+    for (const auto& row : reservations) {
+        if (stoi(row[1]) == nrpokoju) {
+            int priceperday = 50 + (stoi(row[2]) - 1) * 25;
+            int days = checkdays(row[6], row[7]);
+            cout << "Price per day: " << priceperday << ", Days: " << days << endl; // Debugging
+            return priceperday * days;
+        }
+    }
+    cout << "No reservation found for this room." << endl;
+    return 0; // Ensure that the function always returns a value
+}
