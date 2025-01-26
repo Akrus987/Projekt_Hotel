@@ -363,6 +363,7 @@ void listactiveID(const vector<vector<string>>& data){
     cout << endl;
 }}
 
+//poprawnosc formatu daty
 bool isValidDate(const string& date) {
     if (date.length() != 10) {
         return false;
@@ -380,6 +381,47 @@ bool isValidDate(const string& date) {
     }
     return true;
 }
+
+// funkcja sprawdza czy data jest przynajmniej jeden tydzien w przyszlosci
+bool isDateCorrect(const string& date) {
+    if (!isValidDate(date)) {
+        cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+        return false;
+    }
+
+    // aktualna data
+    time_t t = time(nullptr);
+    tm* currentTime = localtime(&t);
+
+    // aktualna data + tydzien
+    const int tydzien = 7 * 24 * 60 * 60;
+    t += tydzien;
+    tm* futureTime = localtime(&t);
+
+    int futureYear = futureTime->tm_year + 1900;
+    int futureMonth = futureTime->tm_mon + 1;
+    int futureDay = futureTime->tm_mday;
+
+    
+    int year, month, day;
+    sscanf(date.c_str(), "%d-%d-%d", &year, &month, &day);
+
+    // porownanie dat
+    if (year < futureYear) {
+        return false;
+    } else if (year == futureYear) {
+        if (month < futureMonth) {
+            return false;
+        } else if (month == futureMonth) {
+            if (day < futureDay) {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 
 void updateReservation(vector<vector<string>>& reservations, const string& ID) {
     string IDChecked = FormatID(ID);
@@ -460,6 +502,10 @@ void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const
     string IDChecked = FormatID(ID);
     for (auto& row : data) {
         if (row[0] == IDChecked) {
+            if (row[4] != "0") {
+                cout << "You already have a room booked." << endl;
+                return;
+            }
             int people;
             cout << "Enter the number of people (1-5): ";
             cin >> people;
@@ -490,11 +536,11 @@ void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const
 
             bool roomFound = false;
             for (auto& room : rooms) {
-                if (room[1] == str_people && room[3] == "nie") {
+                if (room[2] == str_people && room[4] == "nie") {
                     row[4] = room[1];
                     cout << "Room " << room[1] << " has been successfully booked." << endl;
                     roomFound = true;
-                    room[3] = "zarezerwowany";
+                    room[4] = "zarezerwowany";
                     room[6] = startDate;
                     room[7] = endDate;
                     room[8] = row[1];
@@ -512,18 +558,28 @@ void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const
     cout << "No ID under that index" << endl;
 }
 
-void checkReservation(vector<vector<string>>& data, vector<vector<string>>& reservations, const string& ID) {
+void checkReservation(vector<vector<string>>& data, vector<vector<string>>& reservations, string& ID) {
     string IDChecked = FormatID(ID);
-    for (const auto& row : reservations) {
+    string room = "0";
+    for (const auto& row : data) {
         if (row[0] == IDChecked) {
-            cout << "Reservation details for ID " << IDChecked << ":" << endl;
+            room = row[4];
+            break;
+        }
+    }
+    
+    
+    
+    for (auto& row : reservations) {
+        if (row[1] == room) {
+            cout << "--------Info---------" << endl;
             cout << "Room number: " << row[1] << endl;
             cout << "Number of people: " << row[2] << endl;
-            cout << "Status: " << row[3] << endl;
-            cout << "Clean: " << row[4] << endl;
-            cout << "Start date: " << row[5] << endl;
-            cout << "End date: " << row[6] << endl;
-            cout << "Name: " << row[7] << endl;
+            //cout << "Status: " << row[3] << endl;
+            //cout << "Clean: " << row[4] << endl;
+            cout << "Start date: " << row[6] << endl;
+            cout << "End date: " << row[7] << endl;
+            cout << "Name: " << row[8] << " " << row[9] << endl;
 
             int choice;
             cout << "Would you like to:" << endl;
@@ -537,23 +593,26 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
                 case 1:
                 {
                     cout << "Change reservation details" << endl;
-                    updateReservation(reservations, IDChecked);
+                    updateReservation(reservations, ID);
                     break;
                 }
                 case 2:
                 {
                     cout << "Cancel reservation" << endl;
-                    for (auto& row : reservations) {
-                        if (row[0] == IDChecked) {
-                            row[3] = "wolny";
-                            row[4] = "nie";
-                            row[5] = "0";
-                            row[6] = "0";
-                            row[7] = "0";
-                            cout << "Reservation canceled." << endl;
+                    row[3] = "wolny";
+                    row[4] = "nie";
+                    row[5] = "nie";
+                    row[6] = "0";
+                    row[7] = "0";
+                    row[8] = "0";
+                    row[9] = "0";
+                    for (auto& guest : data) {
+                        if (guest[0] == IDChecked) {
+                            guest[4] = "0";
                             break;
                         }
                     }
+                    cout << "Reservation canceled." << endl;
                     break;
                 }
                 case 3:
@@ -570,5 +629,5 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
             return;
         }
     }
-    cout << "No reservation found for the given ID." << endl;
+    cout << "You do not have any booked rooms." << endl;
 }

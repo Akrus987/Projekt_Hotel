@@ -60,11 +60,12 @@ int main()
                 {
                     break;
                 }
-                displayUser(data, current_user);
+                
 
                 bool loggedIn = true;
                 while (loggedIn)
                 {
+                    displayUser(data, current_user);
                     if (getType(data, current_user) == "a")
                     {
                         cout << "You are admin!" << endl;
@@ -142,6 +143,7 @@ int main()
                                 cout << "Check your reservation" << endl;
                                 checkReservation(data, reservations, current_user);
                                 saveData("testing_rooms.txt", "testing_Passwords.txt", reservations, passwordFile);
+                                saveData("testing_ID.txt", "testing_Passwords.txt", data, passwordFile);
                                 break;
                             }
                             case 4:
