@@ -1,4 +1,4 @@
-ID001 1 1 wolny nie nie 0 0 0 0 
+ID001 1 1 wolny zarezerwowany nie 2025-03-03 2025-03-05 D P 
 ID002 2 1 wolny zarezerwowany posprzatany 2025-01-21 2025-01-26 Alexa Siri 
 ID003 3 1 zajety nie nie 2025-01-22 2025-01-27 John Smith 
 ID004 4 1 wolny nie posprzatany 2025-01-23 2025-01-28 Emily Huston 

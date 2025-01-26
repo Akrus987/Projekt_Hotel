@@ -11,6 +11,7 @@
 #include <sstream>
 #include <stdexcept>
 #include <cctype>
+#include <ctime>
 #include "BasicPasswordGenerator.h"
 
 // Function declaration
@@ -363,6 +364,27 @@ void listactiveID(const vector<vector<string>>& data){
     cout << endl;
 }}
 
+
+vector<int> convertDateStringToIntVector(const string& date) {
+    vector<int> dateVector(3);
+    stringstream ss(date);
+    char delimiter;
+
+    ss >> dateVector[0] >> delimiter >> dateVector[1] >> delimiter >> dateVector[2];
+
+    return dateVector;
+}
+
+bool isDateGood( std::vector<int> time ) {
+    if( time[1]> 12) return false; //miesiac
+    if( time[2]> 31 ) return false; //dzien
+    if( time[2] == 31 && ( time[1] == 4 || time[1] == 6 || time[1] == 9 || time[1] == 11 ) ) return false; //30 dzni in Apr, Jun, Sen, Nov
+    if( time[1] == 2) {
+      if( time[2] > 29 ) return false;
+      if( time[2] == 29 && ( ( time[0]%100 )%4 != 0) ) return false;
+    } //luty
+    return true;
+    }
 //poprawnosc formatu daty
 bool isValidDate(const string& date) {
     if (date.length() != 10) {
@@ -379,8 +401,15 @@ bool isValidDate(const string& date) {
             return false;
         }
     }
-    return true;
+    if (isDateGood(convertDateStringToIntVector(date))) {
+        return true;
+    }
+    else {
+        return false;
+    }
 }
+
+
 
 // funkcja sprawdza czy data jest przynajmniej jeden tydzien w przyszlosci
 bool isDateCorrect(const string& date) {
@@ -420,6 +449,38 @@ bool isDateCorrect(const string& date) {
     }
 
     return true;
+}
+
+bool isDateGreater(const string& date1, const string& date2) {
+    // czy daty sa poprawne
+    if (!isValidDate(date1) || !isValidDate(date2)) {
+        cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+        return false;
+    }
+
+    //data 1
+    int year1, month1, day1;
+    sscanf(date1.c_str(), "%d-%d-%d", &year1, &month1, &day1);
+
+    //data 2
+    int year2, month2, day2;
+    sscanf(date2.c_str(), "%d-%d-%d", &year2, &month2, &day2);
+
+    // poriwnanie dat
+    if (year1 > year2) {
+        return true;
+    } 
+    else if (year1 == year2) {
+        if (month1 > month2) {
+            return true;
+        } else if (month1 == month2) {
+            if (day1 > day2) {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 
@@ -521,15 +582,15 @@ void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const
             string startDate, endDate;
             cout << "Enter the start date (YYYY-MM-DD): ";
             cin >> startDate;
-            while (!isValidDate(startDate)) {
-                cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+            while (!isDateCorrect(startDate)) {
+                cout << "Date must be at least 7 days in the future" << endl;
                 cout << "Enter the start date (YYYY-MM-DD): ";
                 cin >> startDate;
             }
             cout << "Enter the end date (YYYY-MM-DD): ";
             cin >> endDate;
-            while (!isValidDate(endDate)) {
-                cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
+            while (!isDateGreater(endDate, startDate)) {
+                cout << "Date must be grater than start date." << endl;
                 cout << "Enter the end date (YYYY-MM-DD): ";
                 cin >> endDate;
             }
@@ -630,4 +691,101 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
         }
     }
     cout << "You do not have any booked rooms." << endl;
+}
+
+bool isLeapYear(int year) {
+    return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+}
+int daysInMonth(int year, int month) {
+    switch (month) {
+        case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+            return 31;
+        case 4: case 6: case 9: case 11:
+            return 30;
+        case 2:
+            return isLeapYear(year) ? 29 : 28;
+        default:
+            return 0;
+    }
+}
+
+int checkdays(const string& start, const string& end) {
+    vector<int> startDate = convertDateStringToIntVector(start);
+    vector<int> endDate = convertDateStringToIntVector(end);
+
+    int startYear = startDate[0];
+    int startMonth = startDate[1];
+    int startDay = startDate[2];
+
+    int endYear = endDate[0];
+    int endMonth = endDate[1];
+    int endDay = endDate[2];
+
+    int days = 0;
+
+    // If the dates are in the same month and year
+    if (startYear == endYear && startMonth == endMonth) {
+        days = endDay - startDay;
+    } else {
+        // Calculate days remaining in the start month
+        days += daysInMonth(startYear, startMonth) - startDay;
+
+        // Add days for the months in between
+        for (int month = startMonth + 1; month < endMonth; ++month) {
+            days += daysInMonth(startYear, month);
+        }
+
+        // Add days for the end month
+        days += endDay;
+
+        // If the dates are in different years
+        if (startYear != endYear) {
+            // Add days for the months in the start year
+            for (int month = startMonth + 1; month <= 12; ++month) {
+                days += daysInMonth(startYear, month);
+            }
+
+            // Add days for the months in the end year
+            for (int month = 1; month < endMonth; ++month) {
+                days += daysInMonth(endYear, month);
+            }
+
+            // Add days for the years in between
+            for (int year = startYear + 1; year < endYear; ++year) {
+                days += isLeapYear(year) ? 366 : 365;
+            }
+        }
+    }
+
+    cout << "Number of days: " << days << endl;
+    return days;
+}
+int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju)
+
+{
+    for (const auto& row : reservations) {
+
+        if (stoi(row[1]) == nrpokoju) {
+
+            cout << "Number of people: " << row[2] << endl;
+
+            cout << "Start date: " << row[6] << endl;
+            cout << "End date: " << row[7] << endl;
+
+            int priceperday;
+            priceperday = 50 + (stoi(row[2]) - 1) * 25;
+
+            int days = checkdays(row[6], row[7]);
+
+
+
+            return priceperday * days;
+        }
+   else
+    {
+        cout << "No reservation found for this room." << endl;
+        return 0;
+    } 
+}
+return 0;
 }

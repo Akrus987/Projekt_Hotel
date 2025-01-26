@@ -136,6 +136,7 @@ int main()
                                 cout << "Book a room" << endl;
                                 bookRoom(data, reservations, current_user);
                                 saveData("testing_ID.txt", "testing_Passwords.txt", data, passwordFile);
+                                saveData("testing_rooms.txt", "testing_Passwords.txt", reservations, passwordFile);
                                 break;
                             }
                             case 3:
