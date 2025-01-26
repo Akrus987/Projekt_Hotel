@@ -483,77 +483,52 @@ bool isDateGreater(const string& date1, const string& date2) {
     return false;
 }
 
-void updateReservation(vector<vector<string>>& reservations, const string& ID) {
-    string IDChecked = FormatID(ID);
+void updateReservation(vector<vector<string>>& reservations, const string& room) {
+
     for (auto& row : reservations) {
-        if (row[0] == IDChecked) {
-            
-            string room;
-            cout << "Choose a room to make a reservation with: ";
-            cin >> room;
-            row[1] = room;
-            cout << "Is there a revervation to be made? y/n" << endl;
-            string ongoing;
-            cin >> ongoing;
-            while (ongoing != "y" && ongoing != "n") {
-                cout << "Invalid input. Please enter yes or no." << endl;
-                cin >> ongoing;
+        if (row[1] == room) {
+            bool x = true;
+            while (x) {
+                cout << "1. Lenghten stay" << endl;
+                cout << "2. Shorten stay" << endl;
+                cout << "3. Go back" << endl;
+                int choice;
+                cout << "Chose option: ";
+                cin >> choice;
+                if (choice == 1) {
+                    string endDate;
+                    cout << "Enter the new end date (YYYY-MM-DD): ";
+                    cin >> endDate;
+                    while (!isDateGreater(endDate, row[7])) {
+                        cout << "Date must be grater than current end date." << endl;
+                        cout << "Enter the new end date (YYYY-MM-DD): ";
+                        cin >> endDate;
+                    }
+                    row[7] = endDate;
+                    cout << "Stay lenghtened." << endl;
+                    return;
+                } else if (choice == 2) {
+                    string endDate;
+                    cout << "Enter the new end date (YYYY-MM-DD): ";
+                    cin >> endDate;
+                    while (!isDateGreater(row[7], endDate) || !isDateGreater(endDate, row[6])) {
+                        cout << "Date must be less than current end date." << endl;
+                        cout << "Enter the new start date (YYYY-MM-DD): ";
+                        cin >> endDate;
+                    }
+                    row[7] = endDate;
+                    cout << "Stay shortened." << endl;
+                    return;
+                } else if (choice == 3) {
+                    //cout << "Going back to the previous menu." << endl;
+                    return;
+                } else {
+                    cout << "Wrong choice!" << endl;
+                }
             }
-            if(ongoing == "y")
-            {
-                ongoing = "zajety";
-                row[3] = ongoing;
-                cout << "When does the reservation start? YYYY-MM-DD";
-                string start;
-                if(!isValidDate(start))
-                {
-                    cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
-                    cout << "Enter the start date (YYYY-MM-DD): ";
-                    cin >> start;
-                }
-                cout << "When does the reservation end? YYYY-MM-DD";
-                string end;
-                if(!isValidDate(end))
-                {
-                    cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
-                    cout << "Enter the end date (YYYY-MM-DD): ";
-                    cin >> end;
-                }
-                cout << "Who is the reservation for? ";
-                string name;
-                cin >> name;
-                cout << "Is the room clean? y/n" << endl;
-                string clean;
-                cin >> clean;
-                if(clean == "n")
-                {
-                    clean = "brudny";
-                }
-                else if(clean == "y")
-                {
-                    clean = "czysty";
-                }
-                row[4] = "zarezerwowany";
-                row[5] = clean;
-                row[6] = start;
-                row[7] = end;
-                row[8] = name;
-                cout << "Reservation updated." << endl;
-                return;
-            }
-            
-            else if (ongoing == "n")
-            {
-                row[3] = "wolny";
-                cout << "Reservation updated." << endl;
-                row[6] = "0";
-                row[7] = "0";
-                row[8] = "0";
-                return;
-            }
-            
-            return;
-        }
+            cout << "1. Lenghten stay" << endl;
+            cout << "2. Shorten stay" << endl;
+        } 
     }
     cout << "No ID under that index" << endl;
 }
@@ -636,6 +611,7 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
     
     for (auto& row : reservations) {
         if (row[1] == room) {
+
             cout << "--------Info---------" << endl;
             cout << "Room number: " << row[1] << endl;
             cout << "Number of people: " << row[2] << endl;
@@ -660,7 +636,7 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
                 case 1:
                 {
                     cout << "Change reservation details" << endl;
-                    updateReservation(reservations, ID);
+                    updateReservation(reservations, room);
                     break;
                 }
                 case 2:
