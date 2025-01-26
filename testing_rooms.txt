@@ -19,12 +19,12 @@ ID018 18 2 wolny nie posprzatany 2025-02-06 2025-02-11 Sophia Scott
 ID019 19 2 zajety zarezerwowany posprzatany 2025-02-07 2025-02-12 Michael Hall 
 ID020 20 2 wolny nie nie 2025-02-08 2025-02-13 Ava Allen 
 ID021 21 3 zajety zarezerwowany posprzatany 2025-02-09 2025-02-14 Lucas Perez 
-ID022 22 3 wolny nie posprzatany 2025-02-10 2025-02-15 Chloe White 
+ID022 22 3 wolny zarezerwowany nie 2025-08-13 2025-09-13 P D 
 ID023 23 3 zajety nie nie 2025-02-11 2025-02-16 Alexander Harris 
 ID024 24 3 wolny zarezerwowany posprzatany 2025-02-12 2025-02-17 Isabella Baker 
 ID025 25 3 zajety nie nie 2025-02-13 2025-02-18 Ethan Thompson 
 ID026 26 3 wolny zarezerwowany posprzatany 2025-02-14 2025-02-19 Mia Rodriguez 
-ID027 33 3 zajety zarezerwowany czysty 2025-02-03 2025-02-10 Potr Przybylski 
+ID027 22 3 zajety zarezerwowany czysty 2025-07-14 2025-07-15 P Przybylski 
 ID028 28 3 wolny zarezerwowany posprzatany 2025-02-16 2025-02-21 Ella Campbell 
 ID029 29 3 zajety nie posprzatany 2025-02-17 2025-02-22 Henry Cooper 
 ID030 30 3 wolny zarezerwowany nie 2025-02-18 2025-02-23 Lily Sanchez 

@@ -652,7 +652,7 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
                 cin.clear();
                 cin.ignore(numeric_limits<streamsize>::max(), '\n');
                 cout << "Invalid input. Please enter a number." << endl;
-                break; // Exit the loop and return to the previous menu
+                continue;
             }
 
             switch (choice) {
@@ -697,7 +697,6 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
     }
     cout << "You do not have any booked rooms." << endl;
 }
-
 bool isLeapYear(int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
@@ -767,25 +766,15 @@ int checkdays(const string& start, const string& end) {
     return days;
 }
 
-int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju)
-
-{
+int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju) {
     for (const auto& row : reservations) {
-
         if (stoi(row[1]) == nrpokoju) {
-            int priceperday;
-            priceperday = 50 + (stoi(row[2]) - 1) * 25;
+            int priceperday = 50 + (stoi(row[2]) - 1) * 25;
             int days = checkdays(row[6], row[7]);
-
-
-
+            cout << "Price per day: " << priceperday << ", Days: " << days << endl; // Debugging
             return priceperday * days;
         }
-   else
-    {
-        cout << "No reservation found for this room." << endl;
-        return 0;
-    } 
-}
-return 0;
+    }
+    cout << "No reservation found for this room." << endl;
+    return 0; // Ensure that the function always returns a value
 }
