@@ -126,12 +126,12 @@ int main()
                             {
                                 cout << "Change reservations" << endl;
                                 listactiveID(reservations);
-                                cout << "Enter ID of user you want to change: ";
+                                cout << "Enter room you want to change: ";
                                 string ID;
                                 cout << "ID : room number : how many people : status : clean : start : end : name" << endl;
                                 cin >> ID;
                                 try {
-                                    updateReservation(reservations, ID);
+                                    updateReservationadmin(reservations, ID);
                                     saveData("testing_rooms.txt", "testing_Passwords.txt", reservations, passwordFile);
                                 } catch (const exception& e) {
                                     cout << "Error updating reservation: " << e.what() << endl;

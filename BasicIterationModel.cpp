@@ -756,3 +756,119 @@ int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju) {
     cout << "No reservation found for this room." << endl;
     return 0; // Ensure that the function always returns a value
 }
+
+void updateReservationadmin(vector<vector<string>>& reservations, const string& room)
+{
+        for (auto& row : reservations) {
+        if (row[1] == room) {
+            bool x = true;
+            while (x) {
+                cout << "1. Change reservation data" << endl;
+                cout << "2. Go back" << endl;
+                int choice;
+                cout << "Chose option: ";
+                cin >> choice;
+                if (choice == 1) {
+                    string wolny, zarezerwowany, posprzatany, datastart, datakoniec, imie, nazwisko;
+                    
+                    bool check = true;
+                    
+                    while(check){
+                    cout << "Enter the data: (wolny/zajety, zarezerwowany/nie, posprzatany/nie, datastart, datakoniec, imie, nazwisko) " << endl;
+                    cin >> wolny >> zarezerwowany >> posprzatany >> datastart >> datakoniec >> imie >> nazwisko;
+                    if(wolny == "wolny" || wolny == "zajety")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data." << endl;
+
+                        if(check == false)
+                        {
+                            return;
+                        }
+                        return;
+                    }
+                
+                    if(zarezerwowany == "zarezerwowany" || zarezerwowany == "nie")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data" << endl;
+                        return;
+                    }
+                    if(posprzatany == "posprzatany" || posprzatany == "nie")
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data" << endl;
+                        return;
+                    }
+                    if(isDateCorrect(datastart))
+                    {
+                       continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data" << endl;
+                        return;
+                    }
+                    if(isDateGreater(datakoniec, datastart))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data" << endl;
+                        return;
+                    }
+                    
+                   if(isValidName(imie))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data" << endl;
+                        return;
+                    }
+                    if(isValidName(nazwisko))
+                    {
+                        continue;
+                    }
+                    else
+                    {
+                        cout << "Wrong data" << endl;
+                        return;
+                    }}
+                    cout << "Reservation data changed." << endl;
+                    row[3] = wolny;
+                    row[4] = zarezerwowany;
+                    row[5] = posprzatany;
+                    row[6] = datastart;
+                    row[7] = datakoniec;
+                    row[8] = imie;
+                    row[9] = nazwisko;
+
+
+                    return;
+                } else if (choice == 2) {
+                    //cout << "Going back to the previous menu." << endl;
+                    return;
+                } else {
+                    cout << "Wrong choice!" << endl;
+                }
+            }
+            cout << "1. Lenghten stay" << endl;
+            cout << "2. Shorten stay" << endl;
+        } 
+    }
+    cout << "No ID under that index" << endl;
+
+
+}
