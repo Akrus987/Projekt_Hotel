@@ -19,6 +19,7 @@ string getUnhashedPassword(const vector<vector<string>>& passwords, const string
 
 using namespace std;
 
+//Jakub i Michał
 vector<vector<string>> readData(const string& filename) {
     ifstream inFile(filename);
     if (!inFile) {
@@ -53,6 +54,7 @@ vector<vector<string>> readData(const string& filename) {
     return data;
 }
 
+//Jakub i Michał
 void saveData(const string& dataFilename, const string& passwordFilename, const vector<vector<string>>& data, const vector<vector<string>>& passwordFile) {
     ofstream outFile(dataFilename);
     if (!outFile) {
@@ -81,6 +83,7 @@ void saveData(const string& dataFilename, const string& passwordFilename, const 
     passFile.close();
 }
 
+//Jakub
 bool isValidName(const string& name) {
     if (name.length() < 2 || name.length() > 25) {
         return false;
@@ -93,6 +96,7 @@ bool isValidName(const string& name) {
     return true;
 }
 
+//Jakub
 bool isValidNumber(const string& number) {
     for (char c : number) {
         if (!isdigit(c)) {
@@ -102,6 +106,7 @@ bool isValidNumber(const string& number) {
     return true;
 }
 
+//Jakub
 string FormatID(const string& input)
 {
     string ID;
@@ -114,6 +119,7 @@ string FormatID(const string& input)
     return ID;
 }
 
+//Jakub
 void displayData(const vector<vector<string>>& data, const string& ID) {
     for (const auto& row : data) {
         string IDChecked = FormatID(ID);
@@ -131,6 +137,7 @@ void displayData(const vector<vector<string>>& data, const string& ID) {
     cout << "No ID under that index" << endl;
 }
 
+//Piotr
 void displayUser(const vector<vector<string>>& data, const string& ID ) {
     for (const auto& row : data) {
         if (row[0] == ID) 
@@ -142,10 +149,12 @@ void displayUser(const vector<vector<string>>& data, const string& ID ) {
     cout << "No user with this ID." << endl;
 }
 
+//Piotr
 bool isValidType(const string& type) {
     return type == "g" || type == "a" || type == "x";
 }
 
+//Jakub i Piotr
 void updateGuestAdmin(vector<vector<string>>& data, vector<vector<string>>& passwords, const string& ID) {
     string IDChecked = FormatID(ID);
     for (auto& row : data) {
@@ -212,6 +221,7 @@ void updateGuestAdmin(vector<vector<string>>& data, vector<vector<string>>& pass
     cout << "No ID under that index" << endl;
 }
 
+//Piotr
 void updateGuest(vector<vector<string>>& data, vector<vector<string>>& passwords, const string& ID) {
     string IDChecked = FormatID(ID);
     for (auto& row : data) {
@@ -264,6 +274,7 @@ void updateGuest(vector<vector<string>>& data, vector<vector<string>>& passwords
     cout << "No ID under that index" << endl;
 }
 
+//Jakub i
 string getUnhashedPassword(const vector<vector<string>>& passwords, const string& input) 
 {
 string ID = FormatID(input);
@@ -284,6 +295,7 @@ string ID = FormatID(input);
     throw runtime_error("No ID under that index.");
 }
 
+//Piotr
 string getID(const vector<vector<string>>& data, const string& imie, const string& nazwisko) {
     for (const auto& row : data) {
         if (row[1] == imie && row[2] == nazwisko) {
@@ -293,6 +305,7 @@ string getID(const vector<vector<string>>& data, const string& imie, const strin
     return "ID000";
 }
 
+//Piotr
 string login(const vector<vector<string>>& passwords, const string& ID, const string& password) {
         if (ID == "ID000") {
             cout << "No user with this name and surname." << endl;
@@ -315,6 +328,7 @@ string login(const vector<vector<string>>& passwords, const string& ID, const st
         return "NULL";
 }
 
+//Piotr
 void new_user(vector<vector<string>>& data, vector<vector<string>>& passwords) {
     string ID="0", name, surname, age, type="g";
     for (const auto& row : data) 
@@ -334,6 +348,7 @@ void new_user(vector<vector<string>>& data, vector<vector<string>>& passwords) {
     
 }
 
+//Bartek
 string getType(const vector<vector<string>>& data, const string& ID) {
     for (const auto& row : data) {
         if (row[0] == ID) {
@@ -343,6 +358,7 @@ string getType(const vector<vector<string>>& data, const string& ID) {
     return "x";
 }
 
+//Jakub
 void listactiveID(const vector<vector<string>>& data){
     for (const auto& row : data) {
         if (row[5] != "x") {
@@ -364,7 +380,7 @@ void listactiveID(const vector<vector<string>>& data){
     cout << endl;
 }}
 
-
+//Jakub
 vector<int> convertDateStringToIntVector(const string& date) {
     vector<int> dateVector(3);
     stringstream ss(date);
@@ -375,6 +391,7 @@ vector<int> convertDateStringToIntVector(const string& date) {
     return dateVector;
 }
 
+//Piotr i Bartek
 bool isDateGood( std::vector<int> time ) {
     if( time[1]> 12) return false; //miesiac
     if( time[2]> 31 ) return false; //dzien
@@ -385,7 +402,8 @@ bool isDateGood( std::vector<int> time ) {
     } //luty
     return true;
     }
-//poprawnosc formatu daty
+
+//Piotr i Bartek
 bool isValidDate(const string& date) {
     if (date.length() != 10) {
         return false;
@@ -409,9 +427,7 @@ bool isValidDate(const string& date) {
     }
 }
 
-
-
-// funkcja sprawdza czy data jest przynajmniej jeden tydzien w przyszlosci
+//Piotr i Bartek
 bool isDateCorrect(const string& date) {
     if (!isValidDate(date)) {
         cout << "Invalid date format. It must be in the format YYYY-MM-DD." << endl;
@@ -451,6 +467,7 @@ bool isDateCorrect(const string& date) {
     return true;
 }
 
+//Piotr i Bartek
 bool isDateGreater(const string& date1, const string& date2) {
     // czy daty sa poprawne
     if (!isValidDate(date1) || !isValidDate(date2)) {
@@ -483,6 +500,7 @@ bool isDateGreater(const string& date1, const string& date2) {
     return false;
 }
 
+//Jakub i Piotr
 void updateReservation(vector<vector<string>>& reservations, const string& room) {
 
     for (auto& row : reservations) {
@@ -532,6 +550,8 @@ void updateReservation(vector<vector<string>>& reservations, const string& room)
     }
     cout << "No ID under that index" << endl;
 }
+
+//Piotr
 void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const string& ID) {
     string IDChecked = FormatID(ID);
     for (auto& row : data) {
@@ -592,10 +612,13 @@ void bookRoom(vector<vector<string>>& data, vector<vector<string>>& rooms, const
     cout << "No ID under that index" << endl;
 }
 
+//Deklaracja funkcji
 int checkdays(const string& start, const string& end);
+
+//Jakub
 int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju);
 
-
+//Jakub i Piotr
 void checkReservation(vector<vector<string>>& data, vector<vector<string>>& reservations, string& ID) {
     string IDChecked = FormatID(ID);
     string room = "0";
@@ -674,11 +697,12 @@ void checkReservation(vector<vector<string>>& data, vector<vector<string>>& rese
     cout << "You do not have any booked rooms." << endl;
 }
 
-
+//Jakub
 bool isLeapYear(int year) {
     return (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
 }
 
+//Jakub
 int daysInMonth(int year, int month) {
     switch (month) {
         case 1: case 3: case 5: case 7: case 8: case 10: case 12:
@@ -692,6 +716,7 @@ int daysInMonth(int year, int month) {
     }
 }
 
+//Jakub
 int checkdays(const string& start, const string& end) {
     vector<int> startDate = convertDateStringToIntVector(start);
     vector<int> endDate = convertDateStringToIntVector(end);
@@ -744,6 +769,7 @@ int checkdays(const string& start, const string& end) {
     return days;
 }
 
+//Jakub
 int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju) {
     for (const auto& row : reservations) {
         if (stoi(row[1]) == nrpokoju) {
@@ -757,6 +783,7 @@ int calculateprice(vector<vector<string>>& reservations, const int& nrpokoju) {
     return 0; // Ensure that the function always returns a value
 }
 
+//Jakub
 void updateReservationadmin(vector<vector<string>>& reservations, const string& room)
 {
         for (auto& row : reservations) {

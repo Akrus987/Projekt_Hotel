@@ -10,16 +10,18 @@
 
 using namespace std;
 
-// Function to check reservation details
+// Function declaration
 void checkReservation(vector<vector<string>>& data, vector<vector<string>>& reservations, const string& ID);
 
+//Wszyscy pisali maina
 int main()
 {
+    
+
     // Load data from files
     vector<vector<string>> data = readData("testing_ID.txt");
     vector<vector<string>> passwordFile = readData("testing_Passwords.txt");
     vector<vector<string>> reservations = readData("testing_rooms.txt");
-
     int choice = 0;
     bool run = true;
     cout << "Welcome to Hotel!" << endl;
@@ -219,6 +221,12 @@ int main()
                                 break;
                             }
                         }
+                    }
+                    else if(getType(data, current_user) == "x")
+                    {
+                        cout << "This user is inactive" << endl;
+                        cout << "Logging out..." << endl;
+                        loggedIn = false;
                     }
                 }
                 break;
