@@ -11,12 +11,13 @@
 #include <iomanip>
 using namespace std;
 
+//Jakub i Michał
 string formatID(int num) {
     stringstream ss;
     ss << "ID" << setw(3) << setfill('0') << num;
     return ss.str();
 }
-
+//Jakub i Michał
 string GeneratePassword(const string& name, const string& surname)
 {
     string newPassword, generated;
@@ -33,7 +34,7 @@ string GeneratePassword(const string& name, const string& surname)
     return newPassword;
 }
 
-
+//Jakub i Michał
 string HashPassword(const string& password) {
     string hashedPassword;
     for (char c : password) {
@@ -41,7 +42,7 @@ string HashPassword(const string& password) {
     }
     return hashedPassword;
 }
-
+//Jakub i Michał
 string UnhashPassword(const string& hashedPassword) {
     string unhashedPassword;
     for (char c : hashedPassword) {
